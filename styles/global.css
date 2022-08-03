@@ -1,27 +1,67 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  line-height: 1.6;
-  font-size: 18px;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 * {
   box-sizing: border-box;
 }
 
-a {
-  color: #0070f3;
-  text-decoration: none;
+html,
+body {
+  color: white;
+  background-color: black;
+  font-family: "Josefin Sans";
+  font-weight: 300;
+  font-size: 24px;
 }
 
-a:hover {
-  text-decoration: underline;
+.bd-shadow {
+  box-shadow: 0 0 12px 12px #00000080;
 }
 
-img {
-  max-width: 100%;
-  display: block;
+.bd-shadow-800 {
+  box-shadow: 0 0 12px 12px #000000cc;
+}
+
+.j-shadow-800 {
+  box-shadow: 0 0 12px 12px #000000cc;
+}
+
+.blur-edge {
+  box-shadow: 0 0 8px 8px #00000080 inset;
+}
+
+.text-shadow {
+  text-shadow: 1px 1px 5px black, -1px -1px 5px black;
+}
+
+.writing {
+  font-family: "EB Garamond";
+  font-size: 24px;
+  padding: 24px;
+}
+
+.writing h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+.writing h1 {
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.font-writing {
+  font-family: "EB Garamond";
+}
+
+.font-mono {
+  font-family: monospace;
+}
+
+@layer components {
+  /* components and classes go here */
 }

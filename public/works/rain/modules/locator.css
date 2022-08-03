@@ -1,0 +1,21 @@
+.locator {
+  display: flex;
+  background: black;
+  color: white;
+  border-bottom: 1px solid grey;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+button {
+  background: black;
+  color: white;
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+
+.adjust {
+  flex-grow: 1;
+}
