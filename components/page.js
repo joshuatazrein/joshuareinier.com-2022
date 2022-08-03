@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Page(props) {
@@ -13,13 +14,19 @@ export default function Page(props) {
         />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
       </Head>
-      <div className="fixed bg-semiblack-800 j-shadow-800 border-white h-header flex flex-row w-screen items-top pt-2 z-50">
+      <div className="fixed bg-semiblack-800 j-shadow-800 border-white h-header flex flex-row w-full items-top pt-2 z-50">
         <Link href="/">
-          <img
-            src="/img/logo.png"
-            className="px-2"
-            style={{ maxHeight: "50px", maxWidth: "50%" }}
-          />
+          <div
+            style={{ width: "300px", maxWidth: "50%" }}
+            className="d-flex items-center h-full"
+          >
+            <img
+              src="/img/logo.png"
+              className="px-2"
+              width="100%"
+              height="auto"
+            />
+          </div>
         </Link>
         {/* <a className="absolute right-4 text-xl font-semibold font-sans">
           about

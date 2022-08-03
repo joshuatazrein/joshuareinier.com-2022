@@ -4,6 +4,7 @@ import Subtitle from "../components/subtitle";
 import Explanation from "../components/explanation";
 import Heading from "../components/heading";
 import { createRef, useEffect, useState } from "react";
+import Image from "next/image";
 
 function HomeHeadline() {
   const textList = [
@@ -71,7 +72,7 @@ export default function Home({}) {
   return (
     <>
       <Page noPadding>
-        <div className="w-screen h-viewer relative">
+        <div className="w-full h-viewer relative">
           <img
             src="/img/home_cover.png"
             className="w-full h-full object-cover z-0"
@@ -90,7 +91,7 @@ export default function Home({}) {
           link="/work/what-ive-done"
           className="relative"
           linkText="watch"
-          background="/vid/what-ive-done_excerpt.mp4"
+          background="/vid/what-ive-done_cover.mp4"
         >
           <Heading>What I've Done</Heading>
           <Subtitle>It's what I've done.</Subtitle>
@@ -250,6 +251,54 @@ export default function Home({}) {
               Doctor&#39;s Union
             </a>
           </iframe>
+        </Section>
+        <Section
+          link="work/place-elegy"
+          background="/img/place-elegy_cover.png"
+        >
+          <Heading>place elegy</Heading>
+          <Subtitle>a soundpoem of constantly shifting foundations</Subtitle>
+          <audio
+            src="/snd/place-elegy.mp3"
+            className="w-full mt-4"
+            controls
+          ></audio>
+          <Explanation>
+            <p className="writing">
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              <i>here we are all dead</i>
+              <br />
+              <br />
+              drifting through fog thinning us to wraiths
+              <br />
+              gazing in a hollow of stretched space towards
+              <br />
+              forward weighted with the mirrors within shadow,
+              <br />
+              <br />
+              retracing footstep-stains tanged upon grey
+              <br />
+              sidewalks mottled with semblance, scarred skeletal
+              <br />
+              by bright points slicing reflective concrete
+              <br />
+              <br />
+              into kaleidoscopic fractures of frames, layers
+              <br />
+              of caskets cavitied with stasis, morgue-breath
+              <br />
+              sheening echoes between each other...
+            </p>
+          </Explanation>
+        </Section>
+        <Section
+          link="work/a-max-patch-i-made-in-2020"
+          background="/vid/a-max-patch_cover.mp4"
+          linkText="watch"
+        >
+          <Heading>a max patch i made in 2020</Heading>
+          <Subtitle>zoom is the performance.</Subtitle>
         </Section>
       </Page>
     </>
