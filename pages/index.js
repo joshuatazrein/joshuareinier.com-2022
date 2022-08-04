@@ -3,72 +3,24 @@ import Page from "../components/page";
 import Subtitle from "../components/subtitle";
 import Explanation from "../components/explanation";
 import Heading from "../components/heading";
-import { createRef, useEffect, useState } from "react";
+import { createRef, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-
-function HomeHeadline() {
-  const textList = [
-    "I THINK",
-    "I HAVE AN IDEA",
-    "SOMETHING TO WRITE",
-    "A POEM",
-    "SOME WORDS OF",
-    "MY CREATION",
-  ];
-  const text = "";
-  let phraseIndex = 0;
-  let charIndex = 0;
-  const writeTime = 100;
-  const waitTime = 500;
-  const deleteTime = 40;
-  const heading = createRef();
-
-  const deleteLetter = () => {
-    text = text.slice(0, text.length - 1);
-    if (text === "") {
-      charIndex = 0;
-      phraseIndex++;
-      if (phraseIndex === textList.length) {
-        phraseIndex = 0;
-      }
-      setTimeout(writeLetter, writeTime);
-    } else {
-      setTimeout(deleteLetter, deleteTime);
-    }
-    $(heading.current).text(text);
-  };
-
-  const writeLetter = () => {
-    console.log(text);
-    text += textList[phraseIndex][charIndex];
-    charIndex++;
-    if (charIndex === textList[phraseIndex].length) {
-      setTimeout(deleteLetter, waitTime);
-    } else {
-      setTimeout(writeLetter, writeTime);
-    }
-    $(heading.current).text(text);
-  };
-
-  useEffect(() => {
-    setTimeout(writeLetter, writeTime);
-  }, []);
-
-  return (
-    <div className="absolute top-3/4 w-full flex justify-end">
-      <h1
-        className="font-mono text-shadow"
-        style={{
-          fontSize: "5vw",
-        }}
-        ref={heading}
-      ></h1>
-      <div className="basis-1/5 shrink"></div>
-    </div>
-  );
-}
+import useOnScreen from "../services/useOnScreen";
 
 export default function Home({}) {
+  const [scrollMax, setScrollMax] = useState(0);
+
+  useEffect(() => {
+    function handleScroll() {
+      if (window.scrollY > scrollMax) setScrollMax(window.scrollY);
+    }
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  });
   return (
     <>
       <Page noPadding>
@@ -83,6 +35,8 @@ export default function Home({}) {
           link="/works/rain/index.html"
           linkA={true}
           background="/vid/rain_cover.mp4"
+          scrollMax={scrollMax}
+          scrollOrder={1}
         >
           <Heading>rain</Heading>
           <Subtitle>a kinetic digital poem</Subtitle>
@@ -92,6 +46,8 @@ export default function Home({}) {
           className="relative"
           linkText="watch"
           background="/vid/what-ive-done_cover.mp4"
+          scrollMax={scrollMax}
+          scrollOrder={2}
         >
           <Heading>What I've Done</Heading>
           <Subtitle>It's what I've done.</Subtitle>
@@ -99,6 +55,8 @@ export default function Home({}) {
         <Section
           link="/work/demons-of-analogy"
           background="/img/demons-analogy_cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={3}
         >
           <Heading>Demons of Analogy</Heading>
           <Subtitle>
@@ -129,6 +87,8 @@ export default function Home({}) {
           link="/works/AM/index.html"
           linkA={true}
           background="/vid/am_cover.mp4"
+          scrollMax={scrollMax}
+          scrollOrder={4}
         >
           <Heading>AM</Heading>
           <Subtitle>the static of being</Subtitle>
@@ -137,6 +97,8 @@ export default function Home({}) {
           link="/works/hauntings/index.html"
           linkA={true}
           background="/img/hauntings-cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={5}
         >
           <Heading>hauntings</Heading>
           <Subtitle class="absolute top-4">
@@ -146,6 +108,8 @@ export default function Home({}) {
         <Section
           link="/work/progress-1-23"
           background="/img/progress_cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={6}
         >
           <Heading>Progress 1-23</Heading>
           <Subtitle>
@@ -185,6 +149,8 @@ export default function Home({}) {
           link="/work/slowing-song"
           background="/img/slowing-song_cover.png"
           linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={7}
         >
           <Heading>slowing song</Heading>
           <Subtitle>
@@ -201,6 +167,8 @@ export default function Home({}) {
           link="https://mackseyjournal.scholasticahq.com/article/21771"
           linkA
           background="/img/reclaiming-space_cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={8}
         >
           <Heading>Reclaiming Space</Heading>
           <Subtitle>
@@ -237,6 +205,8 @@ export default function Home({}) {
           linkA={true}
           background="/img/self-prescribing-doctors_cover.jpg"
           linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={9}
         >
           <Heading>The Self-Prescribing Doctors Union</Heading>
           <Subtitle>Jazz-folk-free-noise quintet</Subtitle>
@@ -255,6 +225,8 @@ export default function Home({}) {
         <Section
           link="work/place-elegy"
           background="/img/place-elegy_cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={10}
         >
           <Heading>place elegy</Heading>
           <Subtitle>a soundpoem of constantly shifting foundations</Subtitle>
@@ -296,11 +268,69 @@ export default function Home({}) {
           link="work/a-max-patch-i-made-in-2020"
           background="/vid/a-max-patch_cover.mp4"
           linkText="watch"
+          scrollMax={scrollMax}
+          scrollOrder={11}
         >
           <Heading>a max patch i made in 2020</Heading>
           <Subtitle>zoom is the performance.</Subtitle>
         </Section>
       </Page>
     </>
+  );
+}
+
+function HomeHeadline() {
+  const textList = [
+    "I THINK",
+    "I HAVE AN IDEA",
+    "SOMETHING TO WRITE",
+    "A POEM",
+    "SOME WORDS OF",
+    "MY CREATION",
+  ];
+  const text = "";
+  let phraseIndex = 0;
+  let charIndex = 0;
+  const writeTime = 100;
+  const waitTime = 500;
+  const deleteTime = 40;
+  const heading = createRef();
+
+  const deleteLetter = () => {
+    text = text.slice(0, text.length - 1);
+    if (text === "") {
+      charIndex = 0;
+      phraseIndex++;
+      if (phraseIndex === textList.length) {
+        phraseIndex = 0;
+      }
+      setTimeout(writeLetter, writeTime);
+    } else {
+      setTimeout(deleteLetter, deleteTime);
+    }
+    $(heading.current).text(text);
+  };
+
+  const writeLetter = () => {
+    text += textList[phraseIndex][charIndex];
+    charIndex++;
+    if (charIndex === textList[phraseIndex].length) {
+      setTimeout(deleteLetter, waitTime);
+    } else {
+      setTimeout(writeLetter, writeTime);
+    }
+    $(heading.current).text(text);
+  };
+
+  return (
+    <div className="absolute top-3/4 w-full flex justify-end">
+      <h1
+        className="font-mono text-shadow"
+        style={{
+          fontSize: "5vw",
+        }}
+      ></h1>
+      <div className="basis-1/5 shrink"></div>
+    </div>
   );
 }
