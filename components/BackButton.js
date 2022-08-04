@@ -9,7 +9,7 @@ export default function BackButton(props) {
         query: { section: props.title },
       }}
     >
-      <button className="w-full border border-white rounded font-sans font-semibold bg-semiblack-500 accent">
+      <button className="w-full border border-white rounded font-sans font-semibold bg-semiblack-500 accent my-4">
         home
       </button>
     </Link>

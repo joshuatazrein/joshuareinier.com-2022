@@ -13,7 +13,8 @@ export default function Page(props) {
           rel="stylesheet"
         />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <title>{props.title}</title>
+        <title>Joshua Tazman Reinier: {props.title}</title>
+        <link href="/img/favicon.png" rel="icon"></link>
       </Head>
       <div className="fixed bg-semiblack-800 j-shadow-800 border-white h-header flex flex-row w-full items-center pt-2 z-50">
         <Link href="/">

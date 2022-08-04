@@ -8,8 +8,11 @@ const title = "floating world variations";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
+      <Title
+        title={title}
+        background="/img/floating-world-variations_cover.png"
+      ></Title>
       <Container>
-        <Title>{title}</Title>
         <div className="writing">
           <h2>floating world variations</h2>
           <br />

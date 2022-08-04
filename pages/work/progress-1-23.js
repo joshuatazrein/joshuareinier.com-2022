@@ -15,8 +15,8 @@ export default function ThisPage({}) {
 
   return (
     <Page title={title}>
+      <Title title={title} background="/img/progress_cover.png"></Title>
       <Container>
-        <Title>{title}</Title>
         <Explanation>
           <i>Progress 1-23</i> spirals between time-scales, traversing illusion
           and disillusionment, the momentary bolt of creative inspiration, eons

@@ -8,8 +8,11 @@ const title = "Quarantine Exegesis";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
+      <Title
+        title={title}
+        background="/img/quarantine-exegesis_cover.png"
+      ></Title>
       <Container>
-        <Title>{title}</Title>
         <div className="writing">
           Can't remember. Been so long. Letters slipped under the door’s tongue.
           Markings flaking off the flat sheets inside. Perhaps letters. Corpses

@@ -9,9 +9,8 @@ const title = "a max patch i made in 2020";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
+      <Title title={title}></Title>
       <Container>
-        <Title>{title}</Title>
-
         <video
           src="/vid/a-max-patch-i-made-in-2020.mp4"
           controls

@@ -8,10 +8,8 @@ const title = "la neige unknown";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
+      <Title title={title} background="/img/la-neige-unknown_cover.png"></Title>
       <Container>
-        <Title>
-          <i>la neige</i> unknown
-        </Title>
         <div className="writing">
           &emsp;&emsp;&emsp;&emsp;snow
           <br />

@@ -3,6 +3,7 @@ import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
 import Page from "../../components/page";
+import PDF from "../../components/PDF";
 import Title from "../../components/title";
 
 const title = "spring";
@@ -10,10 +11,10 @@ const title = "spring";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
+      <Title title={title} background="/img/spring_cover.png"></Title>
       <Container>
-        <Title>{title}</Title>
         <audio controls className="w-full" src="/snd/spring.mp3"></audio>
-        <iframe src="/doc/spring.pdf" className="h-viewer w-full mt-4"></iframe>
+        <PDF src="/doc/spring.pdf"></PDF>
         <BackButton title={title}></BackButton>
       </Container>
     </Page>

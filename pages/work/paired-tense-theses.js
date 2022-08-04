@@ -8,8 +8,11 @@ const title = "(pa)i(re)d te(n)se (theses)";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
+      <Title
+        title={title}
+        background="/img/paired-tense-theses_cover.png"
+      ></Title>
       <Container>
-        <Title>{title}</Title>
         <div className="writing">
           (a m)(i)st <br />
           t(he)at(re)

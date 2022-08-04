@@ -3,6 +3,7 @@ import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
 import Page from "../../components/page";
+import PDF from "../../components/PDF";
 import Title from "../../components/title";
 
 const title = "slowing song";
@@ -10,8 +11,8 @@ const title = "slowing song";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
+      <Title title={title} background="/img/slowing-song_cover.png"></Title>
       <Container>
-        <Title>{title}</Title>
         <Explanation>
           <i>slowing song</i> draws its text from "Slow Song for Mark Rothko" by
           the Objectivist poet John Taggart. The poem uses repeating phrases
@@ -27,10 +28,7 @@ export default function ThisPage({}) {
           Tim Weiss
         </Explanation>
         <audio controls className="w-full" src="/snd/slowing-song.mp3"></audio>
-        <iframe
-          src="/doc/slowing-song.pdf"
-          className="h-viewer w-full mt-4"
-        ></iframe>
+        <PDF src="/doc/slowing-song.pdf"></PDF>
         <div className="writing">
           <h2>1</h2>
           <br />

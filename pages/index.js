@@ -142,7 +142,7 @@ export default function Home({}) {
             creative process
           </Subtitle>
           <Explanation>
-            <p className="writing">
+            <p className="font-writing">
               Mysticism is overrated. you go <br />
               &emsp;&emsp;&emsp;&emsp;through it,
               <br />
@@ -290,7 +290,7 @@ export default function Home({}) {
             controls
           ></audio>
           <Explanation>
-            <p className="writing">
+            <p className="font-writing">
               &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
               &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
               <i>here we are all dead</i>
@@ -328,7 +328,7 @@ export default function Home({}) {
         >
           <Heading>Letters to Jed</Heading>
           <Subtitle>an elegy for my advisor</Subtitle>
-          <Explanation className="writing text-right mx-auto">
+          <Explanation className="font-writing text-right mx-auto">
             There's a rock with your name on it.
             <br />
             Writing is refraction.
@@ -372,7 +372,7 @@ export default function Home({}) {
         >
           <Heading>floating world variations</Heading>
           <Subtitle>dancing around &amp; within images</Subtitle>
-          <Explanation className="writing">
+          <Explanation className="font-writing">
             each layer stencilled
             <br />
             in what could be seventeen <br />
@@ -416,7 +416,7 @@ export default function Home({}) {
         >
           <Heading>Quarantine Exegesis</Heading>
           <Subtitle>prose-poem cycle for a voice in a room, for eons</Subtitle>
-          <Explanation className="writing">
+          <Explanation className="font-writing">
             Can't remember. Been so long. Letters slipped under the door’s
             tongue. Markings flaking off the flat sheets inside. Perhaps
             letters. Corpses of language. Underwords. Lapses from outside
@@ -452,7 +452,7 @@ export default function Home({}) {
         >
           <Heading>(pa)i(re)d te(n)se (theses)</Heading>
           <Subtitle>the inner meaning hidden within the outer</Subtitle>
-          <Explanation className="writing">
+          <Explanation className="font-writing">
             (a m)(i)st <br />
             t(he)at(re)
             <br />
@@ -474,7 +474,7 @@ export default function Home({}) {
         </Section>
 
         <Section
-          link="/snd/production-of-meanings.mp3"
+          link="work/production-of-meanings"
           background="/img/production-of-meanings_cover.png"
           linkText="listen"
           scrollMax={scrollMax}
@@ -502,7 +502,7 @@ export default function Home({}) {
             snow of false-synonyms between french &amp; english
           </Subtitle>
           <Explanation>
-            <p className="writing">
+            <p className="font-writing">
               &emsp;&emsp;&emsp;&emsp;snow
               <br />
               <tab />

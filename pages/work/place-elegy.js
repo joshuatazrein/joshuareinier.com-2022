@@ -10,8 +10,8 @@ const title = "place elegy";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
+      <Title title={title} background="/img/place-elegy_cover.png"></Title>
       <Container>
-        <Title>place elegy</Title>
         <Explanation>
           <i>place elegy</i> contemplates the self-referential nature of
           "places:" we co-create them, endow them with significance through what

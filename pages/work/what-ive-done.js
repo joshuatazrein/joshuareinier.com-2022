@@ -10,7 +10,7 @@ export default function ThisPage({}) {
   console.log();
   return (
     <Page title={title}>
-      <Title>{title}</Title>
+      <Title title={title}></Title>
 
       <iframe
         width="100%"

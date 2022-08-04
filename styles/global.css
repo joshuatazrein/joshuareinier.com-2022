@@ -57,6 +57,8 @@ tab {
   font-family: "EB Garamond";
   font-size: 24px;
   padding: 24px;
+  box-shadow: 0 0 8px 8px #111827;
+  @apply bg-gray-900 rounded;
 }
 
 .writing h2 {
