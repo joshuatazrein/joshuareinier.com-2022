@@ -1,4 +1,3 @@
-import BackButton from "../../components/BackButton";
 import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
@@ -11,12 +10,10 @@ const title = "spring";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
-      <Title title={title} background="/img/spring_cover.png"></Title>
-      <Container>
-        <audio controls className="w-full" src="/snd/spring.mp3"></audio>
-        <PDF src="/doc/spring.pdf"></PDF>
-        <BackButton title={title}></BackButton>
-      </Container>
+      <Title title={title} background="/img/spring_cover.webp"></Title>
+
+      <audio controls className="w-full" src="/snd/spring.mp3"></audio>
+      <PDF src="/doc/spring.pdf"></PDF>
     </Page>
   );
 }

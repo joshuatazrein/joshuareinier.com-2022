@@ -1,4 +1,3 @@
-import BackButton from "../../components/BackButton";
 import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
@@ -11,12 +10,10 @@ const title = "Phenomenology";
 export default function ThisPage({}) {
   return (
     <Page title={title}>
-      <Title title={title} background="/img/phenomenology_cover.png"></Title>
-      <Container>
-        <audio controls className="w-full" src="/snd/phenomenology.mp3"></audio>
-        <PDF src="/doc/phenomenology.pdf"></PDF>
-        <BackButton title={title}></BackButton>
-      </Container>
+      <Title title={title} background="/img/phenomenology_cover.webp"></Title>
+
+      <audio controls className="w-full" src="/snd/phenomenology.mp3"></audio>
+      <PDF src="/doc/phenomenology.pdf"></PDF>
     </Page>
   );
 }

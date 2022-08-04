@@ -1,4 +1,3 @@
-import BackButton from "../../components/BackButton";
 import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
@@ -12,16 +11,14 @@ export default function ThisPage({}) {
     <Page title={title}>
       <Title
         title={title}
-        background="/img/production-of-meanings_cover.png"
+        background="/img/production-of-meanings_cover.webp"
       ></Title>
-      <Container>
-        <audio
-          controls
-          className="w-full mt-4"
-          src="/snd/production-of-meanings.mp3"
-        ></audio>
-        <BackButton title={title}></BackButton>
-      </Container>
+
+      <audio
+        controls
+        className="w-full mt-4"
+        src="/snd/production-of-meanings.mp3"
+      ></audio>
     </Page>
   );
 }

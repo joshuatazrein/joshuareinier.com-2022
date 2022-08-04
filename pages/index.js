@@ -57,7 +57,7 @@ export default function Home({}) {
       <Page noPadding>
         <div className="w-full h-viewer relative">
           <img
-            src="/img/home_cover.png"
+            src="/img/home_cover.webp"
             className="w-full h-full object-cover z-0"
           ></img>
           <HomeHeadline />
@@ -65,7 +65,7 @@ export default function Home({}) {
         <Section
           link="/works/rain/index.html"
           linkA={true}
-          background="/vid/rain_cover.mp4"
+          background="/vid/rain_cover.webm"
           linkText="view"
           scrollMax={scrollMax}
           scrollOrder={1}
@@ -78,7 +78,7 @@ export default function Home({}) {
           link="/work/what-ive-done"
           className="relative"
           linkText="watch"
-          background="/vid/what-ive-done_cover.mp4"
+          background="/vid/what-ive-done_cover.webm"
           scrollMax={scrollMax}
           scrollOrder={2}
         >
@@ -88,7 +88,7 @@ export default function Home({}) {
 
         <Section
           link="/work/demons-of-analogy"
-          background="/img/demons-analogy_cover.png"
+          background="/img/demons-analogy_cover.webp"
           scrollMax={scrollMax}
           scrollOrder={3}
         >
@@ -121,7 +121,7 @@ export default function Home({}) {
         <Section
           link="/works/AM/index.html"
           linkA={true}
-          background="/vid/am_cover.mp4"
+          background="/vid/am_cover.webm"
           linkText="view"
           scrollMax={scrollMax}
           scrollOrder={4}
@@ -132,7 +132,7 @@ export default function Home({}) {
 
         <Section
           link="/work/progress-1-23"
-          background="/img/progress_cover.png"
+          background="/img/progress_cover.webp"
           scrollMax={scrollMax}
           scrollOrder={5}
         >
@@ -173,7 +173,7 @@ export default function Home({}) {
 
         <Section
           link="/work/slowing-song"
-          background="/img/slowing-song_cover.png"
+          background="/img/slowing-song_cover.webp"
           linkText="listen"
           scrollMax={scrollMax}
           scrollOrder={6}
@@ -193,7 +193,7 @@ export default function Home({}) {
         <Section
           link="https://mackseyjournal.scholasticahq.com/article/21771"
           linkA
-          background="/img/reclaiming-space_cover.png"
+          background="/img/reclaiming-space_cover.webp"
           scrollMax={scrollMax}
           scrollOrder={7}
         >
@@ -231,7 +231,7 @@ export default function Home({}) {
         <Section
           link="/works/hauntings/index.html"
           linkA={true}
-          background="/img/hauntings-cover.png"
+          background="/img/hauntings-cover.webp"
           scrollMax={scrollMax}
           scrollOrder={8}
         >
@@ -244,7 +244,7 @@ export default function Home({}) {
         <Section
           link="https://probablevoltages.bandcamp.com/album/the-self-prescribing-doctors-union"
           linkA={true}
-          background="/img/self-prescribing-doctors_cover.jpg"
+          background="/img/self-prescribing-doctors_cover.webp"
           linkText="listen"
           scrollMax={scrollMax}
           scrollOrder={9}
@@ -266,7 +266,7 @@ export default function Home({}) {
 
         <Section
           link="work/a-max-patch-i-made-in-2020"
-          background="/vid/a-max-patch_cover.mp4"
+          background="/vid/a-max-patch_cover.webm"
           linkText="watch"
           scrollMax={scrollMax}
           scrollOrder={10}
@@ -277,7 +277,7 @@ export default function Home({}) {
 
         <Section
           link="work/place-elegy"
-          background="/img/place-elegy_cover.png"
+          background="/img/place-elegy_cover.webp"
           linkText="read & listen"
           scrollMax={scrollMax}
           scrollOrder={11}
@@ -322,7 +322,7 @@ export default function Home({}) {
         <Section
           link="https://twogroves.com/issues/fall2019#letters"
           linkA
-          background="/img/letters-to-jed_cover.png"
+          background="/img/letters-to-jed_cover.webp"
           scrollMax={scrollMax}
           scrollOrder={12}
         >
@@ -350,7 +350,7 @@ export default function Home({}) {
 
         <Section
           link="work/317-feathers"
-          background="/img/317-feathers_cover.png"
+          background="/img/317-feathers_cover.webp"
           linkText="listen"
           scrollMax={scrollMax}
           scrollOrder={13}
@@ -366,7 +366,7 @@ export default function Home({}) {
 
         <Section
           link="work/floating-world-variations"
-          background="/img/floating-world-variations_cover.png"
+          background="/img/floating-world-variations_cover.webp"
           scrollMax={scrollMax}
           scrollOrder={14}
         >
@@ -396,7 +396,7 @@ export default function Home({}) {
 
         <Section
           link="work/spring"
-          background="/img/spring_cover.png"
+          background="/img/spring_cover.webp"
           linkText="listen"
           scrollMax={scrollMax}
           scrollOrder={15}
@@ -410,7 +410,7 @@ export default function Home({}) {
 
         <Section
           link="work/quarantine-exegesis"
-          background="/img/quarantine-exegesis_cover.png"
+          background="/img/quarantine-exegesis_cover.webp"
           scrollMax={scrollMax}
           scrollOrder={16}
         >
@@ -430,7 +430,7 @@ export default function Home({}) {
 
         <Section
           link="work/phenomenology"
-          background="/img/phenomenology_cover.png"
+          background="/img/phenomenology_cover.webp"
           linkText="listen"
           scrollMax={scrollMax}
           scrollOrder={17}
@@ -446,7 +446,7 @@ export default function Home({}) {
 
         <Section
           link="work/paired-tense-theses"
-          background="/img/paired-tense-theses_cover.png"
+          background="/img/paired-tense-theses_cover.webp"
           scrollMax={scrollMax}
           scrollOrder={18}
         >
@@ -475,7 +475,7 @@ export default function Home({}) {
 
         <Section
           link="work/production-of-meanings"
-          background="/img/production-of-meanings_cover.png"
+          background="/img/production-of-meanings_cover.webp"
           linkText="listen"
           scrollMax={scrollMax}
           scrollOrder={19}
@@ -491,7 +491,7 @@ export default function Home({}) {
 
         <Section
           link="work/la-neige-unknown"
-          background="/img/la-neige-unknown_cover.png"
+          background="/img/la-neige-unknown_cover.webp"
           scrollMax={scrollMax}
           scrollOrder={20}
         >
@@ -565,12 +565,12 @@ export default function Home({}) {
         </Section>
 
         <Section
-          link="https://www.youtube.com/watch?v=h4AUj_XyRig&t=227s"
+          link="https://www.youtube.com/embed/h4AUj_XyRig"
           linkA
           linkText="watch"
           scrollMax={scrollMax}
           scrollOrder={21}
-          background="/vid/leaving-suite_cover.mp4"
+          background="/vid/leaving-suite_cover.webm"
         >
           <Heading>The Leaving Suite</Heading>
           <Subtitle>a song-cycle about leaving childhood behind</Subtitle>
@@ -621,7 +621,6 @@ function HomeHeadline() {
       setTimeout(writeLetter, writeTime);
     }
     $(heading.current).text(text);
-    console.log(heading.current);
   };
 
   useEffect(() => {
