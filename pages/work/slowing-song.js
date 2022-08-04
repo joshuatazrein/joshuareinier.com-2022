@@ -1,14 +1,17 @@
+import BackButton from "../../components/BackButton";
 import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
 import Page from "../../components/page";
 import Title from "../../components/title";
 
+const title = "slowing song";
+
 export default function ThisPage({}) {
   return (
-    <Page>
+    <Page title={title}>
       <Container>
-        <Title>slowing song</Title>
+        <Title>{title}</Title>
         <Explanation>
           <i>slowing song</i> draws its text from "Slow Song for Mark Rothko" by
           the Objectivist poet John Taggart. The poem uses repeating phrases
@@ -194,6 +197,7 @@ export default function ThisPage({}) {
           <br />
           To take as the host takes into his house.
         </div>
+        <BackButton title={title}></BackButton>
       </Container>
     </Page>
   );

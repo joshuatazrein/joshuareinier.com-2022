@@ -13,15 +13,15 @@ export default function Section(props) {
 
   if (props.background && !testVideo(props.background)) {
     propStyles.backgroundImage = `linear-gradient(
-      rgba(0, 0, 0, 0.25), 
-      rgba(0, 0, 0, 0.25)
+      rgba(0, 0, 0, 0.33), 
+      rgba(0, 0, 0, 0.33)
     ), url("${props.background}")`;
     propStyles.backgroundPosition = "center";
     propStyles.backgroundSize = "cover";
   }
 
   useEffect(() => {
-    if (props.scrollMax > (props.scrollOrder - 2) * window.innerHeight) {
+    if (props.scrollMax > (props.scrollOrder - 2) * (window.innerHeight - 80)) {
       setInView(true);
     }
   });
@@ -61,13 +61,13 @@ export default function Section(props) {
           <div className="grow bg-transparent z-10"></div>
           {props.linkA ? (
             <a href={props.link} className="z-10 max-w-xl mx-auto block w-full">
-              <button className="w-full border border-white rounded font-sans font-semibold bg-semiblack-500">
+              <button className="w-full border border-white rounded font-sans font-semibold bg-semiblack-500 accent">
                 {props.linkText || "read"}
               </button>
             </a>
           ) : (
             <Link href={props.link}>
-              <button className="border border-white rounded font-sans font-semibold w-full bg-semiblack-500 z-10 max-w-xl mx-auto block">
+              <button className="border border-white rounded font-sans font-semibold w-full bg-semiblack-500 z-10 max-w-xl mx-auto block accent">
                 {props.linkText || "read"}
               </button>
             </Link>

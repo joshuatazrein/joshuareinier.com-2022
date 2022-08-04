@@ -1,13 +1,16 @@
+import BackButton from "../../components/BackButton";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
 import Page from "../../components/page";
 import Title from "../../components/title";
 
+const title = "What I've Done";
+
 export default function ThisPage({}) {
   console.log();
   return (
-    <Page>
-      <Title>What I've Done</Title>
+    <Page title={title}>
+      <Title>{title}</Title>
 
       <iframe
         width="100%"
@@ -41,6 +44,7 @@ export default function ThisPage({}) {
       </Explanation>
       <Heading>Score</Heading>
       <iframe src="/doc/what-ive-done.pdf" className="h-viewer w-full"></iframe>
+      <BackButton title={title}></BackButton>
     </Page>
   );
 }

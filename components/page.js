@@ -13,8 +13,9 @@ export default function Page(props) {
           rel="stylesheet"
         />
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <title>{props.title}</title>
       </Head>
-      <div className="fixed bg-semiblack-800 j-shadow-800 border-white h-header flex flex-row w-full items-top pt-2 z-50">
+      <div className="fixed bg-semiblack-800 j-shadow-800 border-white h-header flex flex-row w-full items-center pt-2 z-50">
         <Link href="/">
           <div
             style={{ width: "300px", maxWidth: "50%" }}
@@ -28,6 +29,9 @@ export default function Page(props) {
             />
           </div>
         </Link>
+        <p className="text-xs">
+          <i>sound • text • multimedia</i>
+        </p>
         {/* <a className="absolute right-4 text-xl font-semibold font-sans">
           about
         </a> */}

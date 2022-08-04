@@ -1,4 +1,5 @@
 import { createRef, useEffect } from "react";
+import BackButton from "../../components/BackButton";
 import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
@@ -6,16 +7,16 @@ import Page from "../../components/page";
 import Title from "../../components/title";
 
 export default function ThisPage({}) {
+  const progress = createRef();
   useEffect(() => {
     $(progress.current).load("/html/progress.html");
   });
-
-  const progress = createRef();
+  const title = "Progress 1-23";
 
   return (
-    <Page>
+    <Page title={title}>
       <Container>
-        <Title>Progress 1-23</Title>
+        <Title>{title}</Title>
         <Explanation>
           <i>Progress 1-23</i> spirals between time-scales, traversing illusion
           and disillusionment, the momentary bolt of creative inspiration, eons
@@ -27,6 +28,7 @@ export default function ThisPage({}) {
           fractal of time.
         </Explanation>
         <div className="writing" ref={progress}></div>
+        <BackButton title={title}></BackButton>
       </Container>
     </Page>
   );

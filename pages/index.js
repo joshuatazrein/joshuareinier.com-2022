@@ -4,15 +4,46 @@ import Subtitle from "../components/subtitle";
 import Explanation from "../components/explanation";
 import Heading from "../components/heading";
 import { createRef, useEffect, useRef, useState } from "react";
-import Image from "next/image";
-import useOnScreen from "../services/useOnScreen";
+import url from "url";
+import querystring from "querystring";
 
 export default function Home({}) {
   const [scrollMax, setScrollMax] = useState(0);
+  // for using to force full load
+  const sectionCount = 21;
+
+  useEffect(() => {
+    // scroll to location if it's in the url
+    if (window.location.href.includes("section=")) {
+      const sectionTitle = querystring.parse(
+        url.parse(window.location.href).query
+      ).section;
+      console.log(sectionCount * (window.innerHeight - 80));
+      setScrollMax(sectionCount * (window.innerHeight - 80));
+      const checkScroll = window.setInterval(() => {
+        const scrollTo = $(".section")
+          .toArray()
+          .filter((x) =>
+            $(x)
+              .html()
+              .replace(/(<i>|<\/i>)/g, "")
+              .includes(sectionTitle)
+          );
+        if (scrollTo[0]) {
+          window.scrollTo({
+            top: $(scrollTo[0]).offset().top - 50,
+            behavior: "smooth",
+          });
+          window.clearInterval(checkScroll);
+        }
+      }, 5);
+    }
+  }, []);
 
   useEffect(() => {
     function handleScroll() {
       if (window.scrollY > scrollMax) setScrollMax(window.scrollY);
+      document.cookie = "scrollMax=" + scrollMax + ";";
     }
 
     window.addEventListener("scroll", handleScroll);
@@ -35,12 +66,14 @@ export default function Home({}) {
           link="/works/rain/index.html"
           linkA={true}
           background="/vid/rain_cover.mp4"
+          linkText="view"
           scrollMax={scrollMax}
           scrollOrder={1}
         >
           <Heading>rain</Heading>
           <Subtitle>a kinetic digital poem</Subtitle>
         </Section>
+
         <Section
           link="/work/what-ive-done"
           className="relative"
@@ -52,6 +85,7 @@ export default function Home({}) {
           <Heading>What I've Done</Heading>
           <Subtitle>It's what I've done.</Subtitle>
         </Section>
+
         <Section
           link="/work/demons-of-analogy"
           background="/img/demons-analogy_cover.png"
@@ -83,33 +117,24 @@ export default function Home({}) {
             to mime to acting, and most importantly, in music.
           </Explanation>
         </Section>
+
         <Section
           link="/works/AM/index.html"
           linkA={true}
           background="/vid/am_cover.mp4"
+          linkText="view"
           scrollMax={scrollMax}
           scrollOrder={4}
         >
           <Heading>AM</Heading>
           <Subtitle>the static of being</Subtitle>
         </Section>
-        <Section
-          link="/works/hauntings/index.html"
-          linkA={true}
-          background="/img/hauntings-cover.png"
-          scrollMax={scrollMax}
-          scrollOrder={5}
-        >
-          <Heading>hauntings</Heading>
-          <Subtitle class="absolute top-4">
-            an argument of ghosts, trapped in a webpage
-          </Subtitle>
-        </Section>
+
         <Section
           link="/work/progress-1-23"
           background="/img/progress_cover.png"
           scrollMax={scrollMax}
-          scrollOrder={6}
+          scrollOrder={5}
         >
           <Heading>Progress 1-23</Heading>
           <Subtitle>
@@ -145,12 +170,13 @@ export default function Home({}) {
             </p>
           </Explanation>
         </Section>
+
         <Section
           link="/work/slowing-song"
           background="/img/slowing-song_cover.png"
           linkText="listen"
           scrollMax={scrollMax}
-          scrollOrder={7}
+          scrollOrder={6}
         >
           <Heading>slowing song</Heading>
           <Subtitle>
@@ -163,12 +189,13 @@ export default function Home({}) {
             className="w-full mt-4"
           ></audio>
         </Section>
+
         <Section
           link="https://mackseyjournal.scholasticahq.com/article/21771"
           linkA
           background="/img/reclaiming-space_cover.png"
           scrollMax={scrollMax}
-          scrollOrder={8}
+          scrollOrder={7}
         >
           <Heading>Reclaiming Space</Heading>
           <Subtitle>
@@ -200,6 +227,20 @@ export default function Home({}) {
             and phallogocentric structures of thought.
           </Explanation>
         </Section>
+
+        <Section
+          link="/works/hauntings/index.html"
+          linkA={true}
+          background="/img/hauntings-cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={8}
+        >
+          <Heading>hauntings</Heading>
+          <Subtitle class="absolute top-4">
+            an argument of ghosts, trapped in a webpage
+          </Subtitle>
+        </Section>
+
         <Section
           link="https://probablevoltages.bandcamp.com/album/the-self-prescribing-doctors-union"
           linkA={true}
@@ -222,11 +263,24 @@ export default function Home({}) {
             </a>
           </iframe>
         </Section>
+
+        <Section
+          link="work/a-max-patch-i-made-in-2020"
+          background="/vid/a-max-patch_cover.mp4"
+          linkText="watch"
+          scrollMax={scrollMax}
+          scrollOrder={10}
+        >
+          <Heading>a max patch i made in 2020</Heading>
+          <Subtitle>um, well, 2020. performance for solo zoomer</Subtitle>
+        </Section>
+
         <Section
           link="work/place-elegy"
           background="/img/place-elegy_cover.png"
+          linkText="read & listen"
           scrollMax={scrollMax}
-          scrollOrder={10}
+          scrollOrder={11}
         >
           <Heading>place elegy</Heading>
           <Subtitle>a soundpoem of constantly shifting foundations</Subtitle>
@@ -264,15 +318,262 @@ export default function Home({}) {
             </p>
           </Explanation>
         </Section>
+
         <Section
-          link="work/a-max-patch-i-made-in-2020"
-          background="/vid/a-max-patch_cover.mp4"
+          link="https://twogroves.com/issues/fall2019#letters"
+          linkA
+          background="/img/letters-to-jed_cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={12}
+        >
+          <Heading>Letters to Jed</Heading>
+          <Subtitle>an elegy for my advisor</Subtitle>
+          <Explanation className="writing text-right mx-auto">
+            There's a rock with your name on it.
+            <br />
+            Writing is refraction.
+            <br />
+            Someone spraypainted it. The background is black and the letters are
+            white.
+            <br />
+            That classroom was grey.
+            <br />
+            Tracking associations. "Spoken thought:" Breton.
+            <br />
+            Jed I'm finally learning French.
+            <br />
+            Translation: one thing tells another.
+            <br />
+            In the end you never could reply.
+          </Explanation>
+        </Section>
+
+        <Section
+          link="work/317-feathers"
+          background="/img/317-feathers_cover.png"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={13}
+        >
+          <Heading>317 feathers (the myth of icarus)</Heading>
+          <Subtitle>voice, piano, &amp; 2 guitars: rising, falling</Subtitle>
+          <audio
+            src="/snd/317-feathers.mp3"
+            controls
+            className="w-full mt-4"
+          ></audio>
+        </Section>
+
+        <Section
+          link="work/floating-world-variations"
+          background="/img/floating-world-variations_cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={14}
+        >
+          <Heading>floating world variations</Heading>
+          <Subtitle>dancing around &amp; within images</Subtitle>
+          <Explanation className="writing">
+            each layer stencilled
+            <br />
+            in what could be seventeen <br />
+            superimpositions
+            <br />
+            <br />
+            <tab />
+            of
+            <br />
+            <br />
+            imprinted figures
+            <br />
+            fleshed by what the mind makes up: <br />
+            i know—i had one <br />
+            <br />
+            <tab />
+            once
+            <br />
+          </Explanation>
+        </Section>
+
+        <Section
+          link="work/spring"
+          background="/img/spring_cover.png"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={15}
+        >
+          <Heading>spring</Heading>
+          <Subtitle>
+            voice, piano, flute, &amp; cello: poetry - give me...
+          </Subtitle>
+          <audio src="/snd/spring.mp3" controls className="w-full mt-4"></audio>
+        </Section>
+
+        <Section
+          link="work/quarantine-exegesis"
+          background="/img/quarantine-exegesis_cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={16}
+        >
+          <Heading>Quarantine Exegesis</Heading>
+          <Subtitle>prose-poem cycle for a voice in a room, for eons</Subtitle>
+          <Explanation className="writing">
+            Can't remember. Been so long. Letters slipped under the door’s
+            tongue. Markings flaking off the flat sheets inside. Perhaps
+            letters. Corpses of language. Underwords. Lapses from outside
+            ciphered by time. Cryptic weight. Could read them once. Whether
+            eyesight memory or the markings themselves have decayed. Envelopes
+            are coffins. Still vibrating undead from inside. As if the morgue’s
+            dreams stuttering against its skull. A holy word struggling to say
+            itself.
+          </Explanation>
+        </Section>
+
+        <Section
+          link="work/phenomenology"
+          background="/img/phenomenology_cover.png"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={17}
+        >
+          <Heading>Phenomenology</Heading>
+          <Subtitle>voice &amp; cello: waking in the dark</Subtitle>
+          <audio
+            src="/snd/phenomenology.mp3"
+            controls
+            className="w-full mt-4"
+          ></audio>
+        </Section>
+
+        <Section
+          link="work/paired-tense-theses"
+          background="/img/paired-tense-theses_cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={18}
+        >
+          <Heading>(pa)i(re)d te(n)se (theses)</Heading>
+          <Subtitle>the inner meaning hidden within the outer</Subtitle>
+          <Explanation className="writing">
+            (a m)(i)st <br />
+            t(he)at(re)
+            <br />
+            <br />
+            *<br />
+            <br />
+            (forge)d mo(t)i(f)s, (u)n(l)i(n)ked (ess)ence
+            <br />
+            <br />
+            *<br />
+            <br />
+            (e)a(ch o)th(e)r’(s)
+            <br />
+            pro(of)
+            <br />
+            (po)s(t)ur(e)s e(nti)ce re(al)ity
+            <br />
+          </Explanation>
+        </Section>
+
+        <Section
+          link="/snd/production-of-meanings.mp3"
+          background="/img/production-of-meanings_cover.png"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={19}
+        >
+          <Heading>production of meanings</Heading>
+          <Subtitle>gunshots of the typewriter</Subtitle>
+          <audio
+            src="/snd/production-of-meanings.mp3"
+            controls
+            className="w-full mt-4"
+          ></audio>
+        </Section>
+
+        <Section
+          link="work/la-neige-unknown"
+          background="/img/la-neige-unknown_cover.png"
+          scrollMax={scrollMax}
+          scrollOrder={20}
+        >
+          <Heading>
+            <i>la neige</i> unknown
+          </Heading>
+          <Subtitle>
+            snow of false-synonyms between french &amp; english
+          </Subtitle>
+          <Explanation>
+            <p className="writing">
+              &emsp;&emsp;&emsp;&emsp;snow
+              <br />
+              <tab />
+              &emsp;
+              <tab />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; falls in swirls
+              <br />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;
+              <tab />
+              <tab />
+              &emsp;&emsp; <i>sécantes</i>
+              <br />
+              &emsp;&emsp;&emsp;&emsp;
+              <tab />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;curved <br />
+              <tab />
+              <tab />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;like diphthongs
+              <br />
+              <tab />
+              <tab />
+              <tab /> <tab />
+              <tab />
+              &emsp;<i>comme dit-on</i>
+              <br />
+              <tab />
+              <tab />
+              <i>tourbillons du langue</i>
+              <br />
+              <tab />
+              <tab />
+              &emsp;
+              <tab />
+              &emsp;&emsp;&emsp;like I why <br />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp; <i>pour quoi</i> <br />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <i>suis-je</i>
+              <br />
+              <tab />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp; <i>une question</i> requested <br />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;by inversion
+              <br />
+            </p>
+          </Explanation>
+        </Section>
+
+        <Section
+          link="https://www.youtube.com/watch?v=h4AUj_XyRig&t=227s"
+          linkA
           linkText="watch"
           scrollMax={scrollMax}
-          scrollOrder={11}
+          scrollOrder={21}
+          background="/vid/leaving-suite_cover.mp4"
         >
-          <Heading>a max patch i made in 2020</Heading>
-          <Subtitle>zoom is the performance.</Subtitle>
+          <Heading>The Leaving Suite</Heading>
+          <Subtitle>a song-cycle about leaving childhood behind</Subtitle>
         </Section>
       </Page>
     </>
@@ -294,7 +595,7 @@ function HomeHeadline() {
   const writeTime = 100;
   const waitTime = 500;
   const deleteTime = 40;
-  const heading = createRef();
+  const heading = useRef();
 
   const deleteLetter = () => {
     text = text.slice(0, text.length - 1);
@@ -320,7 +621,12 @@ function HomeHeadline() {
       setTimeout(writeLetter, writeTime);
     }
     $(heading.current).text(text);
+    console.log(heading.current);
   };
+
+  useEffect(() => {
+    setTimeout(writeLetter, writeTime);
+  }, []);
 
   return (
     <div className="absolute top-3/4 w-full flex justify-end">
@@ -329,6 +635,7 @@ function HomeHeadline() {
         style={{
           fontSize: "5vw",
         }}
+        ref={heading}
       ></h1>
       <div className="basis-1/5 shrink"></div>
     </div>

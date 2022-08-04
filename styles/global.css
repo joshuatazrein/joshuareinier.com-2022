@@ -15,6 +15,15 @@ body {
   font-size: 24px;
 }
 
+tab {
+  display: inline-block;
+  width: 0.5in;
+}
+
+.accent {
+  @apply text-sky-200;
+}
+
 .bd-shadow {
   box-shadow: 0 0 12px 12px #00000080;
 }
