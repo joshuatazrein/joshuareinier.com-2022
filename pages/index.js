@@ -314,7 +314,7 @@ export default function Home({}) {
           filter={filter}
           category="multimedia"
           openSection={openSection}
-          link="AM/index.html"
+          link="am/index.html"
           linkA={true}
           background="/vid/am_cover.webm"
           linkText="view"
