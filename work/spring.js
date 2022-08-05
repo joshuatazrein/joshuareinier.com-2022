@@ -11,6 +11,16 @@ export default function Spring({}) {
     <>
       <Title title={title} background="/img/spring_cover.webp"></Title>
       <Container>
+        <Explanation>
+          The original text in this piece mixes German and English to create a
+          fragmentary poetics, conjuring up the mad poet Hölderlin amidst images
+          of death and renewal. The proportional score requires players to step
+          around and over each other, holding the silences between events as
+          integral to the progression of time. A vague serialism suspends the
+          harmonic language, always alluding to tonality but receding back until
+          the final duet between voice and cello, in which a twisted major scale
+          emerges.
+        </Explanation>
         <audio controls className="w-full" src="/snd/spring.mp3"></audio>
         <PDF src="/doc/spring.pdf"></PDF>
       </Container>

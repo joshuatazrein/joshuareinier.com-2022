@@ -1,4 +1,5 @@
 import Container from "../components/container";
+import Explanation from "../components/explanation";
 import Title from "../components/title";
 
 const title = "(pa)i(re)d te(n)se (theses)";
@@ -11,6 +12,16 @@ export default function PairedTenseTheses({}) {
         background="/img/paired-tense-theses_cover.webp"
       ></Title>
       <Container>
+        <Explanation>
+          In each line of this sequence, letters inside parentheses comprise
+          their own independent poem. The outer poem is conceptual and distant,
+          whereas a personal voice speaks within the parentheses. The poem
+          explores difficulty, bringing out the personal longing within
+          conceptual or truth-oriented language. It is inspired by the{" "}
+          <i>OULIPO</i> movement, a French collective of experimental writers
+          focused on using constraints to illuminate new possibilities in
+          language.{" "}
+        </Explanation>
         <div className="writing">
           (a m)(i)st <br />
           t(he)at(re)

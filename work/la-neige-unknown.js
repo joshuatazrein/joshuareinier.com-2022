@@ -1,4 +1,5 @@
 import Container from "../components/container";
+import Explanation from "../components/explanation";
 import Title from "../components/title";
 
 const title = "la neige unknown";
@@ -11,6 +12,16 @@ export default function LaNeigeUnknown({}) {
         background="/img/la-neige-unknown_cover.webp"
       ></Title>
       <Container>
+        <Explanation>
+          This poem was written during a wintertime stay in Quebec, where I was
+          learning French. The words swirl between the false cognates and
+          connections between French and English, exploring the ambiguity of
+          being in a new landscape. Quebec in winter is cold and dark, and when
+          arriving at a new place the landscape can be disorienting. However, it
+          also reveals the possibility of renewal and learning, as I found
+          within the French language. The text is a concrete landscape of this
+          learning and navigation, playing with sound and meaning.
+        </Explanation>
         <div className="writing">
           &emsp;&emsp;&emsp;&emsp;snow
           <br />

@@ -4,7 +4,6 @@ import Explanation from "../components/explanation";
 import Heading from "../components/heading";
 import { useEffect, useRef, useState } from "react";
 import url from "url";
-import querystring from "querystring";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
@@ -14,9 +13,6 @@ const DynamicViewer = dynamic(() => import("../components/Viewer"), {
 
 export default function Home({}) {
   const [scrollMax, setScrollMax] = useState(0);
-  // for using to force full load
-  const sectionCount = 21;
-
   const [section, setSection] = useState("");
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -27,6 +23,17 @@ export default function Home({}) {
     setScrollMax(Number.POSITIVE_INFINITY);
     setFilter(text);
   };
+
+  useEffect(() => {
+    // freeze body scrolling on open of document
+    if (open) {
+      setTimeout(() => $("body").css("overflow-y", "hidden"), 1000);
+    } else if (menu) {
+      $("body").css("overflow-y", "hidden");
+    } else {
+      $("body").css("overflow-y", "auto");
+    }
+  }, [open, menu]);
 
   useEffect(() => {
     if (filter) {
@@ -49,43 +56,27 @@ export default function Home({}) {
   };
 
   useEffect(() => {
-    // scroll to location if it's in the url
+    // open location if it's in the url
     if (window.location.href.includes("section=")) {
-      const sectionTitle = querystring.parse(
+      const sectionTitle = new URLSearchParams(
         url.parse(window.location.href).query
-      ).section;
-      console.log(sectionCount * (window.innerHeight - 80));
-      setScrollMax(sectionCount * (window.innerHeight - 80));
-      const checkScroll = window.setInterval(() => {
-        const scrollTo = $(".section")
-          .toArray()
-          .filter((x) =>
-            $(x)
-              .html()
-              .replace(/(<i>|<\/i>)/g, "")
-              .includes(sectionTitle)
-          );
-        if (scrollTo[0]) {
-          window.scrollTo({
-            top: $(scrollTo[0]).offset().top - 50,
-            behavior: "smooth",
-          });
-          window.clearInterval(checkScroll);
-        }
-      }, 5);
+      ).get("section");
+      console.log(sectionTitle);
+      openSection(sectionTitle);
     }
   }, []);
 
   useEffect(() => {
     function handleScroll() {
-      if (window.scrollY > scrollMax) setScrollMax(window.scrollY);
-      document.cookie = "scrollMax=" + scrollMax + ";";
+      if ($(window).scrollTop() > scrollMax)
+        setScrollMax($(window).scrollTop());
+      console.log(scrollMax);
     }
 
-    window.addEventListener("scroll", handleScroll);
+    $(window).on("scroll", handleScroll);
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      $(window).off("scroll", handleScroll);
     };
   });
 
@@ -105,7 +96,9 @@ export default function Home({}) {
       <div className="fixed bg-transparent border-white flex flex-row w-full items-center pt-2 z-40 justify-end h-[50px]">
         <div
           style={{ width: "250px", maxWidth: "50%" }}
-          className="d-flex items-center h-full dropdown-container cursor-pointer"
+          className={`d-flex items-center h-full ${
+            !menu ? "dropdown-container cursor-pointer" : ""
+          }`}
         >
           <img
             src="/img/logo.png"
@@ -172,13 +165,13 @@ export default function Home({}) {
       <div
         className={`fixed bg-semiblack-800 w-screen h-screen z-30 ${
           !menu ? "hidden" : ""
-        } top-0 left-0 w-screen h-screen p-4 overflow-scroll pt-14`}
+        } top-0 left-0 w-screen h-screen p-4 overflow-auto pt-14`}
         style={{ transition: "opacity 1s" }}
       >
         <p>
           <img
             src="/img/joshua-tazman.png"
-            className="sm:float-right w-full sm:w-1/2 mb-1 mx-auto sm:mx-1"
+            className="sm:float-right w-full sm:w-1/2 mb-1 mx-auto sm:mx-1 rounded-lg"
           />
           <a
             href="mailto:jreinier@oberlin.edu"
@@ -213,7 +206,7 @@ export default function Home({}) {
         }
       >
         <button
-          className="absolute top-0 right-0 border border-white rounded p-1 m-0.5 sm:m-1 bg-semiblack-500 z-40"
+          className="absolute top-0 right-0 border border-white rounded p-1 m-1 sm:mr-3 sm:mt-1 bg-semiblack-500 z-40"
           onClick={closeSection}
         >
           <img
@@ -225,608 +218,629 @@ export default function Home({}) {
         </button>
         <DynamicViewer link={section}></DynamicViewer>
       </div>
-
-      <div className="w-full h-screen relative">
-        <img
-          src="/img/home_cover.webp"
-          className="w-full h-full object-cover z-0"
-        ></img>
-        <HomeHeadline />
-      </div>
-      <Section
-        search={search}
-        filter={filter}
-        category="multimedia"
-        openSection={openSection}
-        link="/works/rain/index.html"
-        linkA={true}
-        background="/vid/rain_cover.webm"
-        linkText="view"
-        scrollMax={scrollMax}
-        scrollOrder={1}
-      >
-        <Heading>rain</Heading>
-        <Subtitle>a kinetic digital poem</Subtitle>
-      </Section>
-
-      <Section
-        search={search}
-        filter={filter}
-        category="multimedia"
-        openSection={openSection}
-        link="work/what-ive-done"
-        className="relative"
-        linkText="watch"
-        background="/vid/what-ive-done_cover.webm"
-        scrollMax={scrollMax}
-        scrollOrder={2}
-      >
-        <Heading>What I've Done</Heading>
-        <Subtitle>It's what I've done.</Subtitle>
-      </Section>
-
-      <Section
-        search={search}
-        filter={filter}
-        category="theory"
-        openSection={openSection}
-        link="work/demons-of-analogy"
-        background="/img/demons-analogy_cover.webp"
-        scrollMax={scrollMax}
-        scrollOrder={3}
-      >
-        <Heading>Demons of Analogy</Heading>
-        <Subtitle>
-          The Encounter Between Music and Language After Mallarmé
-        </Subtitle>
-        <Explanation>
-          Why do we make analogies? The standard definition suggests “[a]
-          comparison between two things, typically for the purpose of
-          explanation or clarification” (Oxford Languages); an analogy is when
-          something borrows another vocabulary, another set of terms, or another
-          paradigm, to facilitate a deeper understanding. But here, I argue that
-          analogy is more than a didactic tool for making explanations more
-          convenient: rather, analogy is the essential way that we understand
-          ourselves in relation to others—for my purposes, how artists
-          understand their own medium in relation to other mediums.
-          Specifically, I use the concept of analogy to explore the encounter
-          between music and language; I take as my starting point the French
-          Symbolist poet Stéphane Mallarmé, one of the major poets in France at
-          the time of his death in 1898, with a legacy which resonates today in
-          poststructuralism and experimental poetry. Mallarmé interests me
-          because he exemplifies an analogical approach to understanding poetry:
-          in order to articulate his poetics, Mallarmé found inspiration in a
-          diverse array of mediums from dance to mime to acting, and most
-          importantly, in music.
-        </Explanation>
-      </Section>
-
-      <Section
-        search={search}
-        filter={filter}
-        category="multimedia"
-        openSection={openSection}
-        link="/works/AM/index.html"
-        linkA={true}
-        background="/vid/am_cover.webm"
-        linkText="view"
-        scrollMax={scrollMax}
-        scrollOrder={4}
-      >
-        <Heading>AM</Heading>
-        <Subtitle>the static of being</Subtitle>
-      </Section>
-
-      <Section
-        search={search}
-        filter={filter}
-        category="text"
-        openSection={openSection}
-        link="work/progress-1-23"
-        background="/img/progress_cover.webp"
-        scrollMax={scrollMax}
-        scrollOrder={5}
-      >
-        <Heading>Progress 1-23</Heading>
-        <Subtitle>
-          poem sequence that spirals between growing up, evolution, and the
-          creative process
-        </Subtitle>
-        <Explanation>
-          <p className="font-writing">
-            Mysticism is overrated. you go <br />
-            &emsp;&emsp;&emsp;&emsp;through it,
-            <br />
-            and then your hair is dyed red.
-            <br />
-            <br />
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;i wake up every day
-            <br />
-            &emsp;&emsp;&emsp;&emsp;&amp; brush your hair in front of your eyes,
-            <br />
-            &emsp;&emsp;so as not to wake you. Plato put us in the cave
-            <br />
-            <br />
-            &amp; we became grapefruit-skulled exotica,
-            <br />
-            &emsp;&emsp;skulls destined for a museum
-            <br />
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(but it's better than for the
-            dust again):
-            <br />
-            <br />
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-            as Gen 3:19 or something like that, would say. <br />
-          </p>
-        </Explanation>
-      </Section>
-
-      <Section
-        search={search}
-        filter={filter}
-        category="sound"
-        openSection={openSection}
-        link="work/slowing-song"
-        background="/img/slowing-song_cover.webp"
-        linkText="listen"
-        scrollMax={scrollMax}
-        scrollOrder={6}
-      >
-        <Heading>slowing song</Heading>
-        <Subtitle>
-          for chamber orchestra and 3 voices: the gradual decomposition of "to
-          breathe"
-        </Subtitle>
-        <audio
-          src="/snd/slowing-song.mp3"
-          controls
-          className="w-full mt-4"
-        ></audio>
-      </Section>
-
-      <Section
-        search={search}
-        filter={filter}
-        category="theory"
-        openSection={openSection}
-        link="https://mackseyjournal.scholasticahq.com/article/21771"
-        linkA
-        linkExternal
-        background="/img/reclaiming-space_cover.webp"
-        scrollMax={scrollMax}
-        scrollOrder={7}
-      >
-        <Heading>Reclaiming Space</Heading>
-        <Subtitle>
-          Feminist Hysteria in Cixous and Clément, Gilman, and Ferrante
-        </Subtitle>
-        <Explanation>
-          In this paper, I explore the concept of “hysteria” as it is reclaimed
-          by the feminist thinkers/authors Hélène Cixous and Catherine Clément,
-          Charlotte Perkins Gilman, and Elena Ferrante. I begin with a brief
-          overview of the historical connotations of hysteria, showing how the
-          metaphor of hysteria mythologized a patriarchal notion of femininity
-          before being re-mythologized for feminism. I then investigate how
-          Gilman and Ferrante have situated themselves within this myth, using
-          The Newly Born Woman by Cixous and Clément to contextualize Gilman’s
-          "The Yellow Wall-Paper” and Ferrante's first two novels, Troubling
-          Love and The Days of Abandonment. I identify a similar process used by
-          both Gilman and Ferrante in which the female protagonist reinvents
-          herself as a “newly born woman,” which I outline in three stages.
-          First, the subject somatizes patriarchy, percieving it with spatial
-          metaphors and thus representing it in a nonverbal, non-rational way.
-          Second, she encodes a hallucination of oppressed femininity within the
-          patriarchal space, exploring her oppression and potential liberation
-          through a progressively more real “alter ego.” This culminates in the
-          protagonist blending her physical self with her hallucinated alter
-          ego, claiming a new agency just as she appears to be claimed by
-          hysteria. My analysis shows how hysteria has been repurposed by these
-          feminist authors/thinkers as a foil for patriarchal, rational, and
-          phallogocentric structures of thought.
-        </Explanation>
-      </Section>
-
-      <Section
-        search={search}
-        filter={filter}
-        category="multimedia"
-        openSection={openSection}
-        link="/works/hauntings/index.html"
-        linkA={true}
-        background="/img/hauntings-cover.webp"
-        scrollMax={scrollMax}
-        scrollOrder={8}
-      >
-        <Heading>hauntings</Heading>
-        <Subtitle class="absolute top-4">
-          an argument of ghosts, trapped in a webpage
-        </Subtitle>
-      </Section>
-
-      <Section
-        search={search}
-        filter={filter}
-        category="sound"
-        openSection={openSection}
-        link="https://probablevoltages.bandcamp.com/album/the-self-prescribing-doctors-union"
-        linkA
-        linkExternal
-        background="/img/self-prescribing-doctors_cover.webp"
-        linkText="listen"
-        scrollMax={scrollMax}
-        scrollOrder={9}
-      >
-        <Heading>The Self-Prescribing Doctors Union</Heading>
-        <Subtitle>Jazz-folk-free-noise quintet</Subtitle>
-        <iframe
-          style={{ border: 0, width: "100%", height: 120 }}
-          className="mt-3"
-          src="https://bandcamp.com/EmbeddedPlayer/album=1386217721/size=large/bgcol=000000/linkcol=63b2cc/tracklist=false/artwork=none/transparent=true/"
-          seamless
+      <div>
+        <div className="w-full h-screen relative">
+          <img
+            src="/img/home_cover.webp"
+            className="w-full h-full object-cover z-0"
+          ></img>
+          <HomeHeadline />
+          <button
+            className="absolute bottom-0 right-0 border border-white rounded p-1 m-2 bg-semiblack-500"
+            onClick={() => {
+              $("html, body")
+                .stop()
+                .animate({ scrollTop: window.innerHeight }, 1000);
+            }}
+          >
+            <img
+              src="/icon/down.svg"
+              height={16}
+              width={16}
+              className="blue-filter"
+            ></img>
+          </button>
+        </div>
+        <Section
+          search={search}
+          filter={filter}
+          category="multimedia"
+          openSection={openSection}
+          link="rain/index.html"
+          linkA={true}
+          background="/vid/rain_cover.webm"
+          linkText="view"
+          scrollMax={scrollMax}
+          scrollOrder={1}
         >
-          <a href="https://probablevoltages.bandcamp.com/album/the-self-prescribing-doctors-union">
-            The Self-Prescribing Doctor&#39;s Union by The Self-Prescribing
-            Doctor&#39;s Union
-          </a>
-        </iframe>
-      </Section>
+          <Heading>rain</Heading>
+          <Subtitle>a kinetic digital poem</Subtitle>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="multimedia"
-        openSection={openSection}
-        link="work/a-max-patch-i-made-in-2020"
-        background="/vid/a-max-patch_cover.webm"
-        linkText="watch"
-        scrollMax={scrollMax}
-        scrollOrder={10}
-      >
-        <Heading>a max patch i made in 2020</Heading>
-        <Subtitle>um, well, 2020. performance for solo zoomer</Subtitle>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="multimedia"
+          openSection={openSection}
+          link="what-ive-done"
+          className="relative"
+          linkText="watch"
+          background="/vid/what-ive-done_cover.webm"
+          scrollMax={scrollMax}
+          scrollOrder={2}
+        >
+          <Heading>What I've Done</Heading>
+          <Subtitle>It's what I've done.</Subtitle>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="multimedia"
-        openSection={openSection}
-        link="work/place-elegy"
-        background="/img/place-elegy_cover.webp"
-        linkText="read & listen"
-        scrollMax={scrollMax}
-        scrollOrder={11}
-      >
-        <Heading>place elegy</Heading>
-        <Subtitle>a soundpoem of constantly shifting foundations</Subtitle>
-        <audio
-          src="/snd/place-elegy.mp3"
-          className="w-full mt-4"
-          controls
-        ></audio>
-        <Explanation>
-          <p className="font-writing">
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-            <i>here we are all dead</i>
-            <br />
-            <br />
-            drifting through fog thinning us to wraiths
-            <br />
-            gazing in a hollow of stretched space towards
-            <br />
-            forward weighted with the mirrors within shadow,
-            <br />
-            <br />
-            retracing footstep-stains tanged upon grey
-            <br />
-            sidewalks mottled with semblance, scarred skeletal
-            <br />
-            by bright points slicing reflective concrete
-            <br />
-            <br />
-            into kaleidoscopic fractures of frames, layers
-            <br />
-            of caskets cavitied with stasis, morgue-breath
-            <br />
-            sheening echoes between each other...
-          </p>
-        </Explanation>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="theory"
+          openSection={openSection}
+          link="demons-of-analogy"
+          background="/img/demons-analogy_cover.webp"
+          scrollMax={scrollMax}
+          scrollOrder={3}
+        >
+          <Heading>Demons of Analogy</Heading>
+          <Subtitle>
+            The Encounter Between Music and Language After Mallarmé
+          </Subtitle>
+          <Explanation>
+            Why do we make analogies? The standard definition suggests “[a]
+            comparison between two things, typically for the purpose of
+            explanation or clarification” (Oxford Languages); an analogy is when
+            something borrows another vocabulary, another set of terms, or
+            another paradigm, to facilitate a deeper understanding. But here, I
+            argue that analogy is more than a didactic tool for making
+            explanations more convenient: rather, analogy is the essential way
+            that we understand ourselves in relation to others—for my purposes,
+            how artists understand their own medium in relation to other
+            mediums. Specifically, I use the concept of analogy to explore the
+            encounter between music and language; I take as my starting point
+            the French Symbolist poet Stéphane Mallarmé, one of the major poets
+            in France at the time of his death in 1898, with a legacy which
+            resonates today in poststructuralism and experimental poetry.
+            Mallarmé interests me because he exemplifies an analogical approach
+            to understanding poetry: in order to articulate his poetics,
+            Mallarmé found inspiration in a diverse array of mediums from dance
+            to mime to acting, and most importantly, in music.
+          </Explanation>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="text"
-        openSection={openSection}
-        link="https://twogroves.com/issues/fall2019#letters"
-        linkA
-        background="/img/letters-to-jed_cover.webp"
-        scrollMax={scrollMax}
-        scrollOrder={12}
-      >
-        <Heading>Letters to Jed</Heading>
-        <Subtitle>an elegy for my advisor</Subtitle>
-        <Explanation className="font-writing text-right mx-auto">
-          There's a rock with your name on it.
-          <br />
-          Writing is refraction.
-          <br />
-          Someone spraypainted it. The background is black and the letters are
-          white.
-          <br />
-          That classroom was grey.
-          <br />
-          Tracking associations. "Spoken thought:" Breton.
-          <br />
-          Jed I'm finally learning French.
-          <br />
-          Translation: one thing tells another.
-          <br />
-          In the end you never could reply.
-        </Explanation>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="multimedia"
+          openSection={openSection}
+          link="AM/index.html"
+          linkA={true}
+          background="/vid/am_cover.webm"
+          linkText="view"
+          scrollMax={scrollMax}
+          scrollOrder={4}
+        >
+          <Heading>AM</Heading>
+          <Subtitle>the static of being</Subtitle>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="sound"
-        openSection={openSection}
-        link="work/317-feathers"
-        background="/img/317-feathers_cover.webp"
-        linkText="listen"
-        scrollMax={scrollMax}
-        scrollOrder={13}
-      >
-        <Heading>317 feathers (the myth of icarus)</Heading>
-        <Subtitle>voice, piano, &amp; 2 guitars: rising, falling</Subtitle>
-        <audio
-          src="/snd/317-feathers.mp3"
-          controls
-          className="w-full mt-4"
-        ></audio>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="text"
+          openSection={openSection}
+          link="progress-1-23"
+          background="/img/progress_cover.webp"
+          scrollMax={scrollMax}
+          scrollOrder={5}
+        >
+          <Heading>Progress 1-23</Heading>
+          <Subtitle>
+            poem sequence that spirals between growing up, evolution, and the
+            creative process
+          </Subtitle>
+          <Explanation>
+            <p className="font-writing">
+              Mysticism is overrated. you go <br />
+              &emsp;&emsp;&emsp;&emsp;through it,
+              <br />
+              and then your hair is dyed red.
+              <br />
+              <br />
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;i wake up every day
+              <br />
+              &emsp;&emsp;&emsp;&emsp;&amp; brush your hair in front of your
+              eyes,
+              <br />
+              &emsp;&emsp;so as not to wake you. Plato put us in the cave
+              <br />
+              <br />
+              &amp; we became grapefruit-skulled exotica,
+              <br />
+              &emsp;&emsp;skulls destined for a museum
+              <br />
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(but it's better than for the
+              dust again):
+              <br />
+              <br />
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              as Gen 3:19 or something like that, would say. <br />
+            </p>
+          </Explanation>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="text"
-        openSection={openSection}
-        link="work/floating-world-variations"
-        background="/img/floating-world-variations_cover.webp"
-        scrollMax={scrollMax}
-        scrollOrder={14}
-      >
-        <Heading>floating world variations</Heading>
-        <Subtitle>dancing around &amp; within images</Subtitle>
-        <Explanation className="font-writing">
-          each layer stencilled
-          <br />
-          in what could be seventeen <br />
-          superimpositions
-          <br />
-          <br />
-          <tab />
-          of
-          <br />
-          <br />
-          imprinted figures
-          <br />
-          fleshed by what the mind makes up: <br />
-          i know—i had one <br />
-          <br />
-          <tab />
-          once
-          <br />
-        </Explanation>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="sound"
+          openSection={openSection}
+          link="slowing-song"
+          background="/img/slowing-song_cover.webp"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={6}
+        >
+          <Heading>slowing song</Heading>
+          <Subtitle>
+            for chamber orchestra and 3 voices: the gradual decomposition of "to
+            breathe"
+          </Subtitle>
+          <audio
+            src="/snd/slowing-song.mp3"
+            controls
+            className="w-full mt-4"
+          ></audio>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="sound"
-        openSection={openSection}
-        link="work/spring"
-        background="/img/spring_cover.webp"
-        linkText="listen"
-        scrollMax={scrollMax}
-        scrollOrder={15}
-      >
-        <Heading>spring</Heading>
-        <Subtitle>
-          voice, piano, flute, &amp; cello: poetry - give me...
-        </Subtitle>
-        <audio src="/snd/spring.mp3" controls className="w-full mt-4"></audio>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="theory"
+          openSection={openSection}
+          link="https://mackseyjournal.scholasticahq.com/article/21771"
+          linkA
+          linkExternal
+          background="/img/reclaiming-space_cover.webp"
+          scrollMax={scrollMax}
+          scrollOrder={7}
+        >
+          <Heading>Reclaiming Space</Heading>
+          <Subtitle>
+            Feminist Hysteria in Cixous and Clément, Gilman, and Ferrante
+          </Subtitle>
+          <Explanation>
+            In this paper, I explore the concept of “hysteria” as it is
+            reclaimed by the feminist thinkers/authors Hélène Cixous and
+            Catherine Clément, Charlotte Perkins Gilman, and Elena Ferrante. I
+            begin with a brief overview of the historical connotations of
+            hysteria, showing how the metaphor of hysteria mythologized a
+            patriarchal notion of femininity before being re-mythologized for
+            feminism. I then investigate how Gilman and Ferrante have situated
+            themselves within this myth, using The Newly Born Woman by Cixous
+            and Clément to contextualize Gilman’s "The Yellow Wall-Paper” and
+            Ferrante's first two novels, Troubling Love and The Days of
+            Abandonment. I identify a similar process used by both Gilman and
+            Ferrante in which the female protagonist reinvents herself as a
+            “newly born woman,” which I outline in three stages. First, the
+            subject somatizes patriarchy, percieving it with spatial metaphors
+            and thus representing it in a nonverbal, non-rational way. Second,
+            she encodes a hallucination of oppressed femininity within the
+            patriarchal space, exploring her oppression and potential liberation
+            through a progressively more real “alter ego.” This culminates in
+            the protagonist blending her physical self with her hallucinated
+            alter ego, claiming a new agency just as she appears to be claimed
+            by hysteria. My analysis shows how hysteria has been repurposed by
+            these feminist authors/thinkers as a foil for patriarchal, rational,
+            and phallogocentric structures of thought.
+          </Explanation>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="text"
-        openSection={openSection}
-        link="work/quarantine-exegesis"
-        background="/img/quarantine-exegesis_cover.webp"
-        scrollMax={scrollMax}
-        scrollOrder={16}
-      >
-        <Heading>Quarantine Exegesis</Heading>
-        <Subtitle>prose-poem cycle for a voice in a room, for eons</Subtitle>
-        <Explanation className="font-writing">
-          Can't remember. Been so long. Letters slipped under the door’s tongue.
-          Markings flaking off the flat sheets inside. Perhaps letters. Corpses
-          of language. Underwords. Lapses from outside ciphered by time. Cryptic
-          weight. Could read them once. Whether eyesight memory or the markings
-          themselves have decayed. Envelopes are coffins. Still vibrating undead
-          from inside. As if the morgue’s dreams stuttering against its skull. A
-          holy word struggling to say itself.
-        </Explanation>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="multimedia"
+          openSection={openSection}
+          link="hauntings/index.html"
+          linkA={true}
+          background="/img/hauntings-cover.webp"
+          scrollMax={scrollMax}
+          scrollOrder={8}
+        >
+          <Heading>hauntings</Heading>
+          <Subtitle class="absolute top-4">
+            an argument of ghosts, trapped in a webpage
+          </Subtitle>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="sound"
-        openSection={openSection}
-        link="work/phenomenology"
-        background="/img/phenomenology_cover.webp"
-        linkText="listen"
-        scrollMax={scrollMax}
-        scrollOrder={17}
-      >
-        <Heading>Phenomenology</Heading>
-        <Subtitle>voice &amp; cello: waking in the dark</Subtitle>
-        <audio
-          src="/snd/phenomenology.mp3"
-          controls
-          className="w-full mt-4"
-        ></audio>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="sound"
+          openSection={openSection}
+          link="https://probablevoltages.bandcamp.com/album/the-self-prescribing-doctors-union"
+          linkA
+          linkExternal
+          background="/img/self-prescribing-doctors_cover.webp"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={9}
+        >
+          <Heading>The Self-Prescribing Doctors Union</Heading>
+          <Subtitle>Jazz-folk-free-noise quintet</Subtitle>
+          <iframe
+            style={{ border: 0, width: "100%", height: 120 }}
+            className="mt-3"
+            src="https://bandcamp.com/EmbeddedPlayer/album=1386217721/size=large/bgcol=000000/linkcol=63b2cc/tracklist=false/artwork=none/transparent=true/"
+            seamless
+          >
+            <a href="https://probablevoltages.bandcamp.com/album/the-self-prescribing-doctors-union">
+              The Self-Prescribing Doctor&#39;s Union by The Self-Prescribing
+              Doctor&#39;s Union
+            </a>
+          </iframe>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="text"
-        openSection={openSection}
-        link="work/paired-tense-theses"
-        background="/img/paired-tense-theses_cover.webp"
-        scrollMax={scrollMax}
-        scrollOrder={18}
-      >
-        <Heading>(pa)i(re)d te(n)se (theses)</Heading>
-        <Subtitle>the inner meaning hidden within the outer</Subtitle>
-        <Explanation className="font-writing">
-          (a m)(i)st <br />
-          t(he)at(re)
-          <br />
-          <br />
-          *<br />
-          <br />
-          (forge)d mo(t)i(f)s, (u)n(l)i(n)ked (ess)ence
-          <br />
-          <br />
-          *<br />
-          <br />
-          (e)a(ch o)th(e)r’(s)
-          <br />
-          pro(of)
-          <br />
-          (po)s(t)ur(e)s e(nti)ce re(al)ity
-          <br />
-        </Explanation>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="multimedia"
+          openSection={openSection}
+          link="a-max-patch-i-made-in-2020"
+          background="/vid/a-max-patch_cover.webm"
+          linkText="watch"
+          scrollMax={scrollMax}
+          scrollOrder={10}
+        >
+          <Heading>a max patch i made in 2020</Heading>
+          <Subtitle>um, well, 2020. performance for solo zoomer</Subtitle>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="sound"
-        openSection={openSection}
-        link="work/production-of-meanings"
-        background="/img/production-of-meanings_cover.webp"
-        linkText="listen"
-        scrollMax={scrollMax}
-        scrollOrder={19}
-      >
-        <Heading>production of meanings</Heading>
-        <Subtitle>gunshots of the typewriter</Subtitle>
-        <audio
-          src="/snd/production-of-meanings.mp3"
-          controls
-          className="w-full mt-4"
-        ></audio>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="multimedia"
+          openSection={openSection}
+          link="place-elegy"
+          background="/img/place-elegy_cover.webp"
+          linkText="read & listen"
+          scrollMax={scrollMax}
+          scrollOrder={11}
+        >
+          <Heading>place elegy</Heading>
+          <Subtitle>a soundpoem of constantly shifting foundations</Subtitle>
+          <audio
+            src="/snd/place-elegy.mp3"
+            className="w-full mt-4"
+            controls
+          ></audio>
+          <Explanation>
+            <p className="font-writing">
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+              <i>here we are all dead</i>
+              <br />
+              <br />
+              drifting through fog thinning us to wraiths
+              <br />
+              gazing in a hollow of stretched space towards
+              <br />
+              forward weighted with the mirrors within shadow,
+              <br />
+              <br />
+              retracing footstep-stains tanged upon grey
+              <br />
+              sidewalks mottled with semblance, scarred skeletal
+              <br />
+              by bright points slicing reflective concrete
+              <br />
+              <br />
+              into kaleidoscopic fractures of frames, layers
+              <br />
+              of caskets cavitied with stasis, morgue-breath
+              <br />
+              sheening echoes between each other...
+            </p>
+          </Explanation>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="text"
-        openSection={openSection}
-        link="work/la-neige-unknown"
-        background="/img/la-neige-unknown_cover.webp"
-        scrollMax={scrollMax}
-        scrollOrder={20}
-      >
-        <Heading>
-          <i>la neige</i> unknown
-        </Heading>
-        <Subtitle>snow of false-synonyms between french &amp; english</Subtitle>
-        <Explanation>
-          <p className="font-writing">
-            &emsp;&emsp;&emsp;&emsp;snow
+        <Section
+          search={search}
+          filter={filter}
+          category="text"
+          openSection={openSection}
+          link="https://twogroves.com/issues/fall2019#letters"
+          linkA
+          background="/img/letters-to-jed_cover.webp"
+          scrollMax={scrollMax}
+          scrollOrder={12}
+        >
+          <Heading>Letters to Jed</Heading>
+          <Subtitle>an elegy for my advisor</Subtitle>
+          <Explanation className="font-writing text-right mx-auto">
+            There's a rock with your name on it.
+            <br />
+            Writing is refraction.
+            <br />
+            Someone spraypainted it. The background is black and the letters are
+            white.
+            <br />
+            That classroom was grey.
+            <br />
+            Tracking associations. "Spoken thought:" Breton.
+            <br />
+            Jed I'm finally learning French.
+            <br />
+            Translation: one thing tells another.
+            <br />
+            In the end you never could reply.
+          </Explanation>
+        </Section>
+
+        <Section
+          search={search}
+          filter={filter}
+          category="sound"
+          openSection={openSection}
+          link="317-feathers"
+          background="/img/317-feathers_cover.webp"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={13}
+        >
+          <Heading>317 feathers (the myth of icarus)</Heading>
+          <Subtitle>voice, piano, &amp; 2 guitars: rising, falling</Subtitle>
+          <audio
+            src="/snd/317-feathers.mp3"
+            controls
+            className="w-full mt-4"
+          ></audio>
+        </Section>
+
+        <Section
+          search={search}
+          filter={filter}
+          category="text"
+          openSection={openSection}
+          link="floating-world-variations"
+          background="/img/floating-world-variations_cover.webp"
+          scrollMax={scrollMax}
+          scrollOrder={14}
+        >
+          <Heading>floating world variations</Heading>
+          <Subtitle>dancing around &amp; within images</Subtitle>
+          <Explanation className="font-writing">
+            each layer stencilled
+            <br />
+            in what could be seventeen <br />
+            superimpositions
+            <br />
             <br />
             <tab />
-            &emsp;
-            <tab />
-            <tab />
-            <tab />
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; falls in swirls
+            of
+            <br />
+            <br />
+            imprinted figures
+            <br />
+            fleshed by what the mind makes up: <br />
+            i know—i had one <br />
             <br />
             <tab />
-            <tab />
-            &emsp;&emsp;&emsp;
-            <tab />
-            <tab />
-            &emsp;&emsp; <i>sécantes</i>
+            once
             <br />
-            &emsp;&emsp;&emsp;&emsp;
-            <tab />
-            <tab />
-            <tab />
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;curved <br />
-            <tab />
-            <tab />
-            <tab />
-            <tab />
-            &emsp;&emsp;&emsp;like diphthongs
-            <br />
-            <tab />
-            <tab />
-            <tab /> <tab />
-            <tab />
-            &emsp;<i>comme dit-on</i>
-            <br />
-            <tab />
-            <tab />
-            <i>tourbillons du langue</i>
-            <br />
-            <tab />
-            <tab />
-            &emsp;
-            <tab />
-            &emsp;&emsp;&emsp;like I why <br />
-            <tab />
-            <tab />
-            &emsp;&emsp;&emsp; <i>pour quoi</i> <br />
-            <tab />
-            <tab />
-            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <i>suis-je</i>
-            <br />
-            <tab />
-            <tab />
-            <tab />
-            &emsp;&emsp;&emsp; <i>une question</i> requested <br />
-            <tab />
-            <tab />
-            &emsp;&emsp;&emsp;by inversion
-            <br />
-          </p>
-        </Explanation>
-      </Section>
+          </Explanation>
+        </Section>
 
-      <Section
-        search={search}
-        filter={filter}
-        category="sound"
-        openSection={openSection}
-        link="https://www.youtube.com/embed/h4AUj_XyRig"
-        linkA
-        linkText="watch"
-        scrollMax={scrollMax}
-        scrollOrder={21}
-        background="/vid/leaving-suite_cover.webm"
-      >
-        <Heading>The Leaving Suite</Heading>
-        <Subtitle>a song-cycle about leaving childhood behind</Subtitle>
-      </Section>
+        <Section
+          search={search}
+          filter={filter}
+          category="sound"
+          openSection={openSection}
+          link="spring"
+          background="/img/spring_cover.webp"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={15}
+        >
+          <Heading>spring</Heading>
+          <Subtitle>
+            voice, piano, flute, &amp; cello: poetry - give me...
+          </Subtitle>
+          <audio src="/snd/spring.mp3" controls className="w-full mt-4"></audio>
+        </Section>
+
+        <Section
+          search={search}
+          filter={filter}
+          category="text"
+          openSection={openSection}
+          link="quarantine-exegesis"
+          background="/img/quarantine-exegesis_cover.webp"
+          scrollMax={scrollMax}
+          scrollOrder={16}
+        >
+          <Heading>Quarantine Exegesis</Heading>
+          <Subtitle>prose-poem cycle for a voice in a room, for eons</Subtitle>
+          <Explanation className="font-writing">
+            Can't remember. Been so long. Letters slipped under the door’s
+            tongue. Markings flaking off the flat sheets inside. Perhaps
+            letters. Corpses of language. Underwords. Lapses from outside
+            ciphered by time. Cryptic weight. Could read them once. Whether
+            eyesight memory or the markings themselves have decayed. Envelopes
+            are coffins. Still vibrating undead from inside. As if the morgue’s
+            dreams stuttering against its skull. A holy word struggling to say
+            itself.
+          </Explanation>
+        </Section>
+
+        <Section
+          search={search}
+          filter={filter}
+          category="sound"
+          openSection={openSection}
+          link="phenomenology"
+          background="/img/phenomenology_cover.webp"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={17}
+        >
+          <Heading>Phenomenology</Heading>
+          <Subtitle>voice &amp; cello: waking in the dark</Subtitle>
+          <audio
+            src="/snd/phenomenology.mp3"
+            controls
+            className="w-full mt-4"
+          ></audio>
+        </Section>
+
+        <Section
+          search={search}
+          filter={filter}
+          category="text"
+          openSection={openSection}
+          link="paired-tense-theses"
+          background="/img/paired-tense-theses_cover.webp"
+          scrollMax={scrollMax}
+          scrollOrder={18}
+        >
+          <Heading>(pa)i(re)d te(n)se (theses)</Heading>
+          <Subtitle>the inner meaning hidden within the outer</Subtitle>
+          <Explanation className="font-writing">
+            (a m)(i)st <br />
+            t(he)at(re)
+            <br />
+            <br />
+            *<br />
+            <br />
+            (forge)d mo(t)i(f)s, (u)n(l)i(n)ked (ess)ence
+            <br />
+            <br />
+            *<br />
+            <br />
+            (e)a(ch o)th(e)r’(s)
+            <br />
+            pro(of)
+            <br />
+            (po)s(t)ur(e)s e(nti)ce re(al)ity
+            <br />
+          </Explanation>
+        </Section>
+
+        <Section
+          search={search}
+          filter={filter}
+          category="sound"
+          openSection={openSection}
+          link="production-of-meanings"
+          background="/img/production-of-meanings_cover.webp"
+          linkText="listen"
+          scrollMax={scrollMax}
+          scrollOrder={19}
+        >
+          <Heading>production of meanings</Heading>
+          <Subtitle>gunshots of the typewriter</Subtitle>
+          <audio
+            src="/snd/production-of-meanings.mp3"
+            controls
+            className="w-full mt-4"
+          ></audio>
+        </Section>
+
+        <Section
+          search={search}
+          filter={filter}
+          category="text"
+          openSection={openSection}
+          link="la-neige-unknown"
+          background="/img/la-neige-unknown_cover.webp"
+          scrollMax={scrollMax}
+          scrollOrder={20}
+        >
+          <Heading>
+            <i>la neige</i> unknown
+          </Heading>
+          <Subtitle>
+            snow of false-synonyms between french &amp; english
+          </Subtitle>
+          <Explanation>
+            <p className="font-writing">
+              &emsp;&emsp;&emsp;&emsp;snow
+              <br />
+              <tab />
+              &emsp;
+              <tab />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; falls in swirls
+              <br />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;
+              <tab />
+              <tab />
+              &emsp;&emsp; <i>sécantes</i>
+              <br />
+              &emsp;&emsp;&emsp;&emsp;
+              <tab />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;curved <br />
+              <tab />
+              <tab />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;like diphthongs
+              <br />
+              <tab />
+              <tab />
+              <tab /> <tab />
+              <tab />
+              &emsp;<i>comme dit-on</i>
+              <br />
+              <tab />
+              <tab />
+              <i>tourbillons du langue</i>
+              <br />
+              <tab />
+              <tab />
+              &emsp;
+              <tab />
+              &emsp;&emsp;&emsp;like I why <br />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp; <i>pour quoi</i> <br />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; <i>suis-je</i>
+              <br />
+              <tab />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp; <i>une question</i> requested <br />
+              <tab />
+              <tab />
+              &emsp;&emsp;&emsp;by inversion
+              <br />
+            </p>
+          </Explanation>
+        </Section>
+
+        <Section
+          search={search}
+          filter={filter}
+          category="sound"
+          openSection={openSection}
+          link="https://www.youtube.com/embed/h4AUj_XyRig"
+          linkA
+          linkText="watch"
+          scrollMax={scrollMax}
+          scrollOrder={21}
+          background="/vid/leaving-suite_cover.webm"
+        >
+          <Heading>The Leaving Suite</Heading>
+          <Subtitle>a song-cycle about leaving childhood behind</Subtitle>
+        </Section>
+      </div>
     </>
   );
 }
@@ -875,7 +889,11 @@ function HomeHeadline() {
   };
 
   useEffect(() => {
-    setTimeout(writeLetter, writeTime);
+    const startWrite = setTimeout(writeLetter, writeTime);
+
+    return () => {
+      clearTimeout(startWrite);
+    };
   }, []);
 
   return (

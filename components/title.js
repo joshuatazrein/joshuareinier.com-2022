@@ -1,11 +1,9 @@
 export default function Title(props) {
   return (
     <div
-      className="w-full flex items-center justify-center"
+      className={`w-full flex items-center justify-center h-[300px] max-h-[50vh]`}
       style={{
-        height: "300px",
-        maxHeight: "calc(50vh - 60px)",
-        background: `url(${props.background})`,
+        background: props.background ? `url(${props.background})` : "",
         backgroundPosition: "center",
         backgroundSize: "cover",
       }}

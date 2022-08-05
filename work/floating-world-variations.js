@@ -1,4 +1,5 @@
 import Container from "../components/container";
+import Explanation from "../components/explanation";
 import Title from "../components/title";
 
 const title = "floating world variations";
@@ -11,6 +12,12 @@ export default function FloatingWorldVariations({}) {
         background="/img/floating-world-variations_cover.webp"
       ></Title>
       <Container>
+        <Explanation>
+          <i>floating world variations</i> explores of images in dialogue with
+          the writing self. The poems converse with visual art, music, and
+          family as mirrors for the creative process and as projections for
+          doubt and hope.
+        </Explanation>
         <div className="writing">
           <h2>floating world variations</h2>
           <br />

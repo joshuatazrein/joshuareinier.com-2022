@@ -11,6 +11,14 @@ export default function Phenomenology({}) {
     <>
       <Title title={title} background="/img/phenomenology_cover.webp"></Title>
       <Container>
+        <Explanation>
+          Voice and cello are superimposed in this piece, whose original text
+          explores the process of sight and perception while fading between
+          dream and waking. The rhythmic shadowing between the players creates a
+          double-vision, accentuating the points in which they fail to perfectly
+          line up. The use of Sprechgesang makes this piece both formal and
+          conversational.
+        </Explanation>
         <audio controls className="w-full" src="/snd/phenomenology.mp3"></audio>
         <PDF src="/doc/phenomenology.pdf"></PDF>
       </Container>

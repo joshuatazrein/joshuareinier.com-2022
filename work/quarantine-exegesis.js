@@ -1,4 +1,5 @@
 import Container from "../components/container";
+import Explanation from "../components/explanation";
 import Title from "../components/title";
 
 const title = "Quarantine Exegesis";
@@ -11,6 +12,18 @@ export default function QuarantineExegesis({}) {
         background="/img/quarantine-exegesis_cover.webp"
       ></Title>
       <Container>
+        <Explanation>
+          The voice of this sequence is trapped in a blank, spare room, having
+          looked, seemingly for eons, at its gradual decay, haunted by the
+          memories of an ambiguous past. The room falls apart over the course of
+          the sequence as the immobile speaker surveys it, personifying the
+          growing disarray as dust and sounds transform into faces and
+          footsteps. In part inspired by the conditions of the COVID lockdown,
+          the piece contemplates the question of meaning within isolation, and
+          suggests a more eternal quality of being locked inside one's own
+          subjectivity. At the end, though, the speaker finds a way out of
+          depersonalisation into a final statement of "I."{" "}
+        </Explanation>
         <div className="writing">
           Can't remember. Been so long. Letters slipped under the door’s tongue.
           Markings flaking off the flat sheets inside. Perhaps letters. Corpses
