@@ -32,7 +32,11 @@ export default function Section(props) {
       ref={thisSection}
       className={`section w-full h-screen p-4 pt-[60px] flex flex-col ${
         props.className || ""
-      } ${props.background && testVideo(props.background) ? "relative" : ""}`}
+      } ${props.background && testVideo(props.background) ? "relative" : ""} ${
+        props.search || (props.filter && props.filter !== props.category)
+          ? "hidden"
+          : ""
+      }`}
       style={{ ...propStyles, minHeight: "fit-content" }}
     >
       {inView && (

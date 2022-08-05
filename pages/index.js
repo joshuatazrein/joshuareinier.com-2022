@@ -2,11 +2,10 @@ import Section from "../components/section";
 import Subtitle from "../components/subtitle";
 import Explanation from "../components/explanation";
 import Heading from "../components/heading";
-import { createRef, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import url from "url";
 import querystring from "querystring";
 import Head from "next/head";
-import Link from "next/link";
 
 export default function Home({}) {
   const [scrollMax, setScrollMax] = useState(0);
@@ -16,6 +15,19 @@ export default function Home({}) {
   const [section, setSection] = useState("");
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [filter, setFilter] = useState(false);
+  const [search, setSearch] = useState("");
+
+  const triggerFilter = (text) => {
+    setScrollMax(Number.POSITIVE_INFINITY);
+    setFilter(text);
+  };
+
+  useEffect(() => {
+    if (filter) {
+      $(window).scrollTop(window.innerHeight);
+    }
+  }, [filter]);
 
   const toggleMenu = () => {
     setMenu(!menu);
@@ -71,6 +83,7 @@ export default function Home({}) {
       window.removeEventListener("scroll", handleScroll);
     };
   });
+
   return (
     <>
       <Head>
@@ -87,7 +100,7 @@ export default function Home({}) {
       <div className="fixed bg-transparent border-white flex flex-row w-full items-center pt-2 z-40 justify-end h-[50px]">
         <div
           style={{ width: "250px", maxWidth: "50%" }}
-          className="d-flex items-center h-full"
+          className="d-flex items-center h-full dropdown-container cursor-pointer"
         >
           <img
             src="/img/logo.png"
@@ -98,6 +111,46 @@ export default function Home({}) {
                 "drop-shadow(0px 0px 8px #000000) drop-shadow(0px 0px 4px #000000)",
             }}
           />
+          <div className="dropdown top-0 right-0 bg-semiblack-500 rounded p-3">
+            {/* <input
+              className="bg-black rounded w-full mb-2 px-1"
+              placeholder="search..."
+              onChange={(ev) => {
+                setSearch(ev.target.value);
+              }}
+              value={search}
+            ></input> */}
+            <p
+              className="hover:text-sky-200 cursor-pointer"
+              onClick={() => triggerFilter(false)}
+            >
+              all
+            </p>
+            <p
+              className="hover:text-sky-200 cursor-pointer"
+              onClick={() => triggerFilter("multimedia")}
+            >
+              multimedia
+            </p>
+            <p
+              className="hover:text-sky-200 cursor-pointer"
+              onClick={() => triggerFilter("text")}
+            >
+              text
+            </p>
+            <p
+              className="hover:text-sky-200 cursor-pointer"
+              onClick={() => triggerFilter("sound")}
+            >
+              sound
+            </p>
+            <p
+              className="hover:text-sky-200 cursor-pointer"
+              onClick={() => triggerFilter("theory")}
+            >
+              theory
+            </p>
+          </div>
         </div>
         <button
           className="border border-white rounded p-1 mx-1 bg-semiblack-500 z-40"
@@ -176,6 +229,9 @@ export default function Home({}) {
         <HomeHeadline />
       </div>
       <Section
+        search={search}
+        filter={filter}
+        category="multimedia"
         openSection={openSection}
         link="/works/rain/index.html"
         linkA={true}
@@ -189,6 +245,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="multimedia"
         openSection={openSection}
         link="/work/what-ive-done"
         className="relative"
@@ -202,6 +261,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="theory"
         openSection={openSection}
         link="/work/demons-of-analogy"
         background="/img/demons-analogy_cover.webp"
@@ -235,6 +297,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="multimedia"
         openSection={openSection}
         link="/works/AM/index.html"
         linkA={true}
@@ -248,6 +313,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="text"
         openSection={openSection}
         link="/work/progress-1-23"
         background="/img/progress_cover.webp"
@@ -289,6 +357,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="sound"
         openSection={openSection}
         link="/work/slowing-song"
         background="/img/slowing-song_cover.webp"
@@ -309,6 +380,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="theory"
         openSection={openSection}
         link="https://mackseyjournal.scholasticahq.com/article/21771"
         linkA
@@ -348,6 +422,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="multimedia"
         openSection={openSection}
         link="/works/hauntings/index.html"
         linkA={true}
@@ -362,6 +439,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="sound"
         openSection={openSection}
         link="https://probablevoltages.bandcamp.com/album/the-self-prescribing-doctors-union"
         linkA
@@ -387,6 +467,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="multimedia"
         openSection={openSection}
         link="work/a-max-patch-i-made-in-2020"
         background="/vid/a-max-patch_cover.webm"
@@ -399,6 +482,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="multimedia"
         openSection={openSection}
         link="work/place-elegy"
         background="/img/place-elegy_cover.webp"
@@ -444,6 +530,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="text"
         openSection={openSection}
         link="https://twogroves.com/issues/fall2019#letters"
         linkA
@@ -474,6 +563,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="sound"
         openSection={openSection}
         link="work/317-feathers"
         background="/img/317-feathers_cover.webp"
@@ -491,6 +583,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="text"
         openSection={openSection}
         link="work/floating-world-variations"
         background="/img/floating-world-variations_cover.webp"
@@ -522,6 +617,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="sound"
         openSection={openSection}
         link="work/spring"
         background="/img/spring_cover.webp"
@@ -537,6 +635,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="text"
         openSection={openSection}
         link="work/quarantine-exegesis"
         background="/img/quarantine-exegesis_cover.webp"
@@ -557,6 +658,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="sound"
         openSection={openSection}
         link="work/phenomenology"
         background="/img/phenomenology_cover.webp"
@@ -574,6 +678,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="text"
         openSection={openSection}
         link="work/paired-tense-theses"
         background="/img/paired-tense-theses_cover.webp"
@@ -604,6 +711,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="sound"
         openSection={openSection}
         link="work/production-of-meanings"
         background="/img/production-of-meanings_cover.webp"
@@ -621,6 +731,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="text"
         openSection={openSection}
         link="work/la-neige-unknown"
         background="/img/la-neige-unknown_cover.webp"
@@ -695,6 +808,9 @@ export default function Home({}) {
       </Section>
 
       <Section
+        search={search}
+        filter={filter}
+        category="sound"
         openSection={openSection}
         link="https://www.youtube.com/embed/h4AUj_XyRig"
         linkA

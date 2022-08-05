@@ -90,6 +90,17 @@ tab {
   width: 100vw !important;
 }
 
+.dropdown-container:hover > .dropdown {
+  display: block !important;
+  position: relative;
+}
+
+.dropdown {
+  @apply hidden;
+  position: absolute;
+  z-index: 40;
+}
+
 @layer components {
   /* components and classes go here */
 }
