@@ -13,8 +13,6 @@ module.exports = {
     },
     extend: {
       height: {
-        viewer: "calc(100vh - 60px)",
-        mobileViewer: "calc(100vh - 100px)",
         header: "60px",
       },
       padding: {

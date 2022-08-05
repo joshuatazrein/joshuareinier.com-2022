@@ -1,14 +1,14 @@
 import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
-import Page from "../../components/page";
+import SubPage from "../../components/SubPage";
 import Title from "../../components/title";
 
 const title = "place elegy";
 
 export default function ThisPage({}) {
   return (
-    <Page title={title}>
+    <SubPage title={title}>
       <Title title={title} background="/img/place-elegy_cover.webp"></Title>
 
       <Explanation>
@@ -152,6 +152,6 @@ export default function ThisPage({}) {
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
         <i>dead all are we here</i>
       </div>
-    </Page>
+    </SubPage>
   );
 }

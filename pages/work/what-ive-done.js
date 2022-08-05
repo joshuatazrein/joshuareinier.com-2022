@@ -1,6 +1,6 @@
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
-import Page from "../../components/page";
+import SubPage from "../../components/SubPage";
 import PDF from "../../components/PDF";
 import Title from "../../components/title";
 
@@ -9,7 +9,7 @@ const title = "What I've Done";
 export default function ThisPage({}) {
   console.log();
   return (
-    <Page title={title}>
+    <SubPage title={title}>
       <Title title={title}></Title>
 
       <iframe
@@ -44,6 +44,6 @@ export default function ThisPage({}) {
       </Explanation>
       <Heading>Score</Heading>
       <PDF src="/doc/what-ive-done.pdf"></PDF>
-    </Page>
+    </SubPage>
   );
 }

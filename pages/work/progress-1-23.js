@@ -2,14 +2,14 @@ import { createRef, useEffect } from "react";
 import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
-import Page from "../../components/page";
+import SubPage from "../../components/SubPage";
 import Title from "../../components/title";
 
 export default function ThisPage({}) {
   const title = "Progress 1-23";
 
   return (
-    <Page title={title}>
+    <SubPage title={title}>
       <Title title={title} background="/img/progress_cover.webp"></Title>
 
       <Explanation>
@@ -1817,6 +1817,6 @@ export default function ThisPage({}) {
           <em>that</em> came from.
         </p>
       </div>
-    </Page>
+    </SubPage>
   );
 }

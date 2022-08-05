@@ -277,10 +277,12 @@ text a {
   color: white;
   border-radius: 5px;
   display: flex;
-  justify-content: space-between;
-  width: 100vw;
   height: 1.5em;
   padding: 0 15px;
+}
+
+.navbar * {
+  margin: 0 4px;
 }
 
 .navbar a {

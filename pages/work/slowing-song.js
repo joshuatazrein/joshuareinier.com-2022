@@ -1,7 +1,7 @@
 import Container from "../../components/container";
 import Explanation from "../../components/explanation";
 import Heading from "../../components/heading";
-import Page from "../../components/page";
+import SubPage from "../../components/SubPage";
 import PDF from "../../components/PDF";
 import Title from "../../components/title";
 
@@ -9,7 +9,7 @@ const title = "slowing song";
 
 export default function ThisPage({}) {
   return (
-    <Page title={title}>
+    <SubPage title={title}>
       <Title title={title} background="/img/slowing-song_cover.webp"></Title>
 
       <Explanation>
@@ -194,6 +194,6 @@ export default function ThisPage({}) {
         <br />
         To take as the host takes into his house.
       </div>
-    </Page>
+    </SubPage>
   );
 }

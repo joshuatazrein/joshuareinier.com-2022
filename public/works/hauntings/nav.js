@@ -27,7 +27,7 @@ const pieces = [
 ];
 
 const title = $("title").html();
-const navBar = `<div class="navbar"><a href="index.html" title="index">index</a><span style="font-weight: bold">${title}</span><a href="${
+const navBar = `<div class="navbar"><span style="font-weight: bold">${title}</span><a href="index.html" title="index">index</a><a href="${
   pieces[pieces.indexOf(title) + 1] || "index"
 }.html">next</a></div>`;
 

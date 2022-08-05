@@ -5,7 +5,7 @@ export default function PDF(props) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="w-3/4 h-viewer relative mx-auto">
+    <div className="w-3/4 h-screen relative mx-auto my-2">
       <a
         href={props.src}
         target="_blank"
@@ -15,7 +15,7 @@ export default function PDF(props) {
       </a>
       <iframe
         src={props.src}
-        className="mt-2 mx-auto rounded relative w-full h-full"
+        className="mx-auto rounded relative w-full h-full"
         style={{
           filter: props.dark
             ? "invert(96%)"

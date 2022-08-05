@@ -1,12 +1,12 @@
 import Container from "../../components/container";
-import Page from "../../components/page";
+import SubPage from "../../components/SubPage";
 import Title from "../../components/title";
 
 const title = "floating world variations";
 
 export default function ThisPage({}) {
   return (
-    <Page title={title}>
+    <SubPage title={title}>
       <Title
         title={title}
         background="/img/floating-world-variations_cover.webp"
@@ -834,6 +834,6 @@ export default function ThisPage({}) {
         &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;I always thought myself too young to
         understand.
       </div>
-    </Page>
+    </SubPage>
   );
 }

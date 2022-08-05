@@ -53,12 +53,16 @@ tab {
     0px 0px 15px black;
 }
 
+.blue-filter {
+  filter: brightness(70%) sepia(100%) hue-rotate(180deg);
+}
+
 .writing {
   font-family: "EB Garamond";
   font-size: 24px;
-  padding: 24px;
-  box-shadow: 0 0 8px 8px #111827;
-  @apply bg-gray-900 rounded;
+  box-shadow: 0 0 8px 8px #374151;
+  margin: 1em 0;
+  @apply bg-gray-700 rounded pl-2 sm:px-4;
 }
 
 .writing h2 {
@@ -80,6 +84,10 @@ tab {
 
 .font-mono {
   font-family: monospace;
+}
+
+.carousel > div > * {
+  width: 100vw !important;
 }
 
 @layer components {

@@ -1,12 +1,12 @@
 import Container from "../../components/container";
-import Page from "../../components/page";
+import SubPage from "../../components/SubPage";
 import Title from "../../components/title";
 
 const title = "(pa)i(re)d te(n)se (theses)";
 
 export default function ThisPage({}) {
   return (
-    <Page title={title}>
+    <SubPage title={title}>
       <Title
         title={title}
         background="/img/paired-tense-theses_cover.webp"
@@ -203,6 +203,6 @@ export default function ThisPage({}) {
         <br />
         c(i)p(he)r (ar)t
       </div>
-    </Page>
+    </SubPage>
   );
 }

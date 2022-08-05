@@ -1,12 +1,12 @@
 import Container from "../../components/container";
-import Page from "../../components/page";
+import SubPage from "../../components/SubPage";
 import Title from "../../components/title";
 
 const title = "Quarantine Exegesis";
 
 export default function ThisPage({}) {
   return (
-    <Page title={title}>
+    <SubPage title={title}>
       <Title
         title={title}
         background="/img/quarantine-exegesis_cover.webp"
@@ -119,6 +119,6 @@ export default function ThisPage({}) {
         itself. The air wrinkled with charge. Hands reaching backward as the
         frame disintegrates in flames. I will remember.
       </div>
-    </Page>
+    </SubPage>
   );
 }

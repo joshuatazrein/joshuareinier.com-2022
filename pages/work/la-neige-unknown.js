@@ -1,12 +1,12 @@
 import Container from "../../components/container";
-import Page from "../../components/page";
+import SubPage from "../../components/SubPage";
 import Title from "../../components/title";
 
 const title = "la neige unknown";
 
 export default function ThisPage({}) {
   return (
-    <Page title={title}>
+    <SubPage title={title}>
       <Title
         title={title}
         background="/img/la-neige-unknown_cover.webp"
@@ -1252,6 +1252,6 @@ export default function ThisPage({}) {
         &emsp; <tab /> <tab />
         &emsp;&emsp;&emsp;&emsp;&emsp; <i>adieu</i> and renewal
       </div>
-    </Page>
+    </SubPage>
   );
 }

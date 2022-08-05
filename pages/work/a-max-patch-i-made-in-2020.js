@@ -1,4 +1,4 @@
-import Page from "../../components/page";
+import SubPage from "../../components/SubPage";
 import Title from "../../components/title";
 import Container from "../../components/container";
 import Explanation from "../../components/explanation";
@@ -7,7 +7,7 @@ const title = "a max patch i made in 2020";
 
 export default function ThisPage({}) {
   return (
-    <Page title={title}>
+    <SubPage title={title}>
       <Title title={title}></Title>
 
       <video
@@ -15,6 +15,6 @@ export default function ThisPage({}) {
         controls
         width="100%"
       ></video>
-    </Page>
+    </SubPage>
   );
 }
