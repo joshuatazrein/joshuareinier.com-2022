@@ -12,12 +12,13 @@ export default function ProductionOfMeanings({}) {
         title={title}
         background="/img/production-of-meanings_cover.webp"
       ></Title>
-
-      <audio
-        controls
-        className="w-full mt-4"
-        src="/snd/production-of-meanings.mp3"
-      ></audio>
+      <Container>
+        <audio
+          controls
+          className="w-full mt-4"
+          src="/snd/production-of-meanings.mp3"
+        ></audio>
+      </Container>
     </>
   );
 }

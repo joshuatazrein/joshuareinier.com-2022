@@ -1,8 +1,8 @@
 {
   "index.js -> ../components/Viewer": {
-    "id": 3822,
+    "id": "index.js -> ../components/Viewer",
     "files": [
-      "static/chunks/822.38f827b1d8594fa3.js"
+      "static/chunks/components_Viewer_js.js"
     ]
   }
 }

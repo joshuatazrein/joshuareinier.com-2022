@@ -10,9 +10,10 @@ export default function Spring({}) {
   return (
     <>
       <Title title={title} background="/img/spring_cover.webp"></Title>
-
-      <audio controls className="w-full" src="/snd/spring.mp3"></audio>
-      <PDF src="/doc/spring.pdf"></PDF>
+      <Container>
+        <audio controls className="w-full" src="/snd/spring.mp3"></audio>
+        <PDF src="/doc/spring.pdf"></PDF>
+      </Container>
     </>
   );
 }

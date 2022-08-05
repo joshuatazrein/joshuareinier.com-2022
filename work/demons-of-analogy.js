@@ -11,7 +11,9 @@ export default function DemonsOfAnalogy({}) {
         title={title}
         background="/img/demons-of-analogy_cover.webp"
       ></Title>
-      <PDF src="/doc/demons-of-analogy.pdf"></PDF>
+      <Container>
+        <PDF src="/doc/demons-of-analogy.pdf"></PDF>
+      </Container>
     </>
   );
 }

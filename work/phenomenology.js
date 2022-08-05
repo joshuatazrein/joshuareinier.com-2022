@@ -10,9 +10,10 @@ export default function Phenomenology({}) {
   return (
     <>
       <Title title={title} background="/img/phenomenology_cover.webp"></Title>
-
-      <audio controls className="w-full" src="/snd/phenomenology.mp3"></audio>
-      <PDF src="/doc/phenomenology.pdf"></PDF>
+      <Container>
+        <audio controls className="w-full" src="/snd/phenomenology.mp3"></audio>
+        <PDF src="/doc/phenomenology.pdf"></PDF>
+      </Container>
     </>
   );
 }
