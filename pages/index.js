@@ -6,6 +6,11 @@ import { useEffect, useRef, useState } from "react";
 import url from "url";
 import querystring from "querystring";
 import Head from "next/head";
+import dynamic from "next/dynamic";
+
+const DynamicViewer = dynamic(() => import("../components/Viewer"), {
+  loading: () => <div></div>,
+});
 
 export default function Home({}) {
   const [scrollMax, setScrollMax] = useState(0);
@@ -218,7 +223,7 @@ export default function Home({}) {
             width={16}
           />
         </button>
-        <iframe src={section} className="h-full w-full"></iframe>
+        <DynamicViewer link={section}></DynamicViewer>
       </div>
 
       <div className="w-full h-screen relative">
@@ -249,7 +254,7 @@ export default function Home({}) {
         filter={filter}
         category="multimedia"
         openSection={openSection}
-        link="/work/what-ive-done"
+        link="work/what-ive-done"
         className="relative"
         linkText="watch"
         background="/vid/what-ive-done_cover.webm"
@@ -265,7 +270,7 @@ export default function Home({}) {
         filter={filter}
         category="theory"
         openSection={openSection}
-        link="/work/demons-of-analogy"
+        link="work/demons-of-analogy"
         background="/img/demons-analogy_cover.webp"
         scrollMax={scrollMax}
         scrollOrder={3}
@@ -317,7 +322,7 @@ export default function Home({}) {
         filter={filter}
         category="text"
         openSection={openSection}
-        link="/work/progress-1-23"
+        link="work/progress-1-23"
         background="/img/progress_cover.webp"
         scrollMax={scrollMax}
         scrollOrder={5}
@@ -361,7 +366,7 @@ export default function Home({}) {
         filter={filter}
         category="sound"
         openSection={openSection}
-        link="/work/slowing-song"
+        link="work/slowing-song"
         background="/img/slowing-song_cover.webp"
         linkText="listen"
         scrollMax={scrollMax}

@@ -5,6 +5,24 @@ exports.id = 820;
 exports.ids = [820];
 exports.modules = {
 
+/***/ 2648:
+/***/ ((__unused_webpack_module, exports) => {
+
+var __webpack_unused_export__;
+
+__webpack_unused_export__ = ({
+    value: true
+});
+exports.Z = _interopRequireDefault;
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+        default: obj
+    };
+}
+
+
+/***/ }),
+
 /***/ 9185:
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
@@ -13,13 +31,9 @@ Object.defineProperty(exports, "__esModule", ({
     value: true
 }));
 exports["default"] = void 0;
-var _react = _interopRequireDefault(__webpack_require__(6689));
-var _head = _interopRequireDefault(__webpack_require__(4957));
-function _interopRequireDefault(obj) {
-    return obj && obj.__esModule ? obj : {
-        default: obj
-    };
-}
+var _interop_require_default = (__webpack_require__(2648)/* ["default"] */ .Z);
+var _react = _interop_require_default(__webpack_require__(6689));
+var _head = _interop_require_default(__webpack_require__(4957));
 const statusCodes = {
     400: "Bad Request",
     404: "This page could not be found",
@@ -88,15 +102,16 @@ const styles = {
         display: "inline-block",
         margin: 0,
         marginRight: "20px",
-        padding: "10px 23px 10px 0",
+        padding: "0 23px 0 0",
         fontSize: "24px",
         fontWeight: 500,
-        verticalAlign: "top"
+        verticalAlign: "top",
+        lineHeight: "49px"
     },
     h2: {
         fontSize: "14px",
         fontWeight: "normal",
-        lineHeight: "inherit",
+        lineHeight: "49px",
         margin: 0,
         padding: 0
     }

@@ -1,132 +1,34 @@
 {
   "polyfillFiles": [
-    "static/chunks/polyfills-0d1b80a048d4787e.js"
+    "static/chunks/polyfills-c67a75d1b6f99dc8.js"
   ],
   "devFiles": [],
   "ampDevFiles": [],
   "lowPriorityFiles": [
-    "static/Wj2l9RAbeH-Z5mkG7_UJT/_buildManifest.js",
-    "static/Wj2l9RAbeH-Z5mkG7_UJT/_ssgManifest.js"
+    "static/vXrEIhnHEwiRTigt8dqcN/_buildManifest.js",
+    "static/vXrEIhnHEwiRTigt8dqcN/_ssgManifest.js"
   ],
   "rootMainFiles": [],
   "pages": {
     "/": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
+      "static/chunks/webpack-aca984f707f51852.js",
       "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/index-7ebec5d74c5bc8bc.js"
+      "static/chunks/main-9c8e3d471c1e00ef.js",
+      "static/chunks/720-0f59caffd2c0f504.js",
+      "static/chunks/pages/index-18e12ecd10125b43.js"
     ],
     "/_app": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
+      "static/chunks/webpack-aca984f707f51852.js",
       "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/css/4c1f3d541f4402b5.css",
+      "static/chunks/main-9c8e3d471c1e00ef.js",
+      "static/css/1158cb5a534e5627.css",
       "static/chunks/pages/_app-8a2a6a97b496e142.js"
     ],
     "/_error": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
+      "static/chunks/webpack-aca984f707f51852.js",
       "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
+      "static/chunks/main-9c8e3d471c1e00ef.js",
       "static/chunks/pages/_error-a4ba2246ff8fb532.js"
-    ],
-    "/work/317-feathers": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/317-feathers-4f5be568082a40c9.js"
-    ],
-    "/work/a-max-patch-i-made-in-2020": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/a-max-patch-i-made-in-2020-c394a7f642fc52fd.js"
-    ],
-    "/work/demons-of-analogy": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/demons-of-analogy-eb9b7cf25d5c8483.js"
-    ],
-    "/work/floating-world-variations": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/floating-world-variations-70bc9b47e72b2499.js"
-    ],
-    "/work/la-neige-unknown": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/la-neige-unknown-f3c56270bf048fed.js"
-    ],
-    "/work/paired-tense-theses": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/paired-tense-theses-40be070153411e80.js"
-    ],
-    "/work/phenomenology": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/phenomenology-94b0fc3fe99dac41.js"
-    ],
-    "/work/place-elegy": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/place-elegy-62bce323ed68f901.js"
-    ],
-    "/work/production-of-meanings": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/production-of-meanings-f6b4da599e5ad270.js"
-    ],
-    "/work/progress-1-23": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/progress-1-23-a6929cb0f4903ab1.js"
-    ],
-    "/work/quarantine-exegesis": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/quarantine-exegesis-4263f6d4c0de3e93.js"
-    ],
-    "/work/slowing-song": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/slowing-song-6e56b96e02432b02.js"
-    ],
-    "/work/spring": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/spring-f0b0aef2d1b81197.js"
-    ],
-    "/work/what-ive-done": [
-      "static/chunks/webpack-69bfa6990bb9e155.js",
-      "static/chunks/framework-5f4595e5518b5600.js",
-      "static/chunks/main-3fff476dfb1fd164.js",
-      "static/chunks/749-31c51a62cf690cae.js",
-      "static/chunks/pages/work/what-ive-done-4acd819bfb2ed7a2.js"
     ]
   },
   "ampFirstPages": []
