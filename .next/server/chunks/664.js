@@ -144,7 +144,7 @@ var _router = __webpack_require__(6273);
 var _addLocale = __webpack_require__(2725);
 var _routerContext = __webpack_require__(4964);
 var _appRouterContext = __webpack_require__(3280);
-var _useIntersection = __webpack_require__(7190);
+var _useIntersection = __webpack_require__(6628);
 var _getDomainLocale = __webpack_require__(1210);
 var _addBasePath = __webpack_require__(8684);
 function _interopRequireDefault(obj) {
@@ -752,7 +752,7 @@ if ((typeof exports.default === "function" || typeof exports.default === "object
 
 /***/ }),
 
-/***/ 7190:
+/***/ 6628:
 /***/ ((module, exports, __webpack_require__) => {
 
 "use strict";
