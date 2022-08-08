@@ -36,7 +36,7 @@ export default function Section(props) {
           ? "hidden"
           : ""
       }`}
-      style={{ ...propStyles, minHeight: "fit-content" }}
+      style={{ ...propStyles }}
     >
       {inView && (
         <>
@@ -60,26 +60,27 @@ export default function Section(props) {
               class="object-cover"
             ></video>
           )}
-          <Container>{props.children}</Container>
+          <div className="px-2 z-10 w-full max-w-xl mx-auto h-full d-flex flex-col">
+            {props.children}
+            <div className="g-transparent z-10 grow"></div>
 
-          <div className="grow bg-transparent z-10"></div>
-
-          {props.linkExternal ? (
-            <a
-              href={props.link}
-              target="_blank"
-              className="border border-white rounded font-sans font-semibold w-full bg-semiblack-500 z-10 max-w-xl mx-auto block accent text-center"
-            >
-              {props.linkText || "read"}
-            </a>
-          ) : (
-            <button
-              className="border border-white rounded font-sans font-semibold w-full bg-semiblack-500 z-10 max-w-xl mx-auto block accent"
-              onClick={() => props.openSection(props.link)}
-            >
-              {props.linkText || "read"}
-            </button>
-          )}
+            {props.linkExternal ? (
+              <a
+                href={props.link}
+                target="_blank"
+                className="border border-white rounded font-sans font-semibold w-full bg-semiblack-500 z-10 max-w-xl mx-auto block accent text-center"
+              >
+                {props.linkText || "read"}
+              </a>
+            ) : (
+              <button
+                className="border border-white rounded font-sans font-semibold w-full bg-semiblack-500 z-10 max-w-xl mx-auto block accent"
+                onClick={() => props.openSection(props.link)}
+              >
+                {props.linkText || "read"}
+              </button>
+            )}
+          </div>
         </>
       )}
     </div>
