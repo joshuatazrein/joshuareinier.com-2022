@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { createRef, useEffect, useRef, useState } from "react";
+import { createRef, useEffect, useState } from "react";
 import Container from "./container";
 
 function testVideo(url) {
@@ -7,8 +7,10 @@ function testVideo(url) {
 }
 
 export default function Section(props) {
+  const thisSection = createRef();
   let propStyles = props.style || {};
   const [inView, setInView] = useState(false);
+  const close = () => setOpen(false);
 
   if (inView && props.background && !testVideo(props.background)) {
     propStyles.backgroundImage = `linear-gradient(
@@ -25,11 +27,10 @@ export default function Section(props) {
     }
   });
 
-  const thisSection = useRef();
-
   return (
     <div
-      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col snap-start ${
+      ref={thisSection}
+      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col ${
         props.className || ""
       } ${
         props.search || (props.filter && props.filter !== props.category)

@@ -25,10 +25,6 @@ export default function Home({}) {
   };
 
   useEffect(() => {
-    $("body").css("scroll-snap-type", "y mandatory");
-  });
-
-  useEffect(() => {
     // freeze body scrolling on open of document
     if (open) {
       setTimeout(() => $("body").css("overflow-y", "hidden"), 1000);
