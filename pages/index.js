@@ -223,7 +223,7 @@ export default function Home({}) {
         <DynamicViewer link={section}></DynamicViewer>
       </div>
       <div>
-        <div className="w-full h-screen relative snap-start">
+        <div className="w-full h-screen relative">
           <img
             src="/img/home_cover.webp"
             className="w-full h-full object-cover z-0"
