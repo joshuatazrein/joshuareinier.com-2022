@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import url from "url";
 import Head from "next/head";
 import dynamic from "next/dynamic";
+import $ from "jquery";
 
 const DynamicViewer = dynamic(() => import("../components/Viewer"), {
   loading: () => <div></div>,
@@ -23,6 +24,10 @@ export default function Home({}) {
     setScrollMax(Number.POSITIVE_INFINITY);
     setFilter(text);
   };
+
+  useEffect(() => {
+    $("body").addClass("snap-y snap-mandatory");
+  });
 
   useEffect(() => {
     // freeze body scrolling on open of document
