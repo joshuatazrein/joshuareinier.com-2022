@@ -74,14 +74,14 @@ export default function Section(props) {
     >
       {inView && (
         <>
-          {props.background && testVideo && (
+          {props.background && testVideo(props.background) && (
             <video
               autoPlay
               muted
               loop
               playsInline
               poster={`/img/${
-                props.background.slice(5, props.background.length - 5) + ".gif"
+                props.background.slice(5, props.background.length - 5) + ".png"
               }`}
               src={props.background}
               style={{
@@ -94,7 +94,7 @@ export default function Section(props) {
                 height: "100%",
                 zIndex: 0,
               }}
-              class="object-cover"
+              className="object-cover"
             ></video>
           )}
           <div

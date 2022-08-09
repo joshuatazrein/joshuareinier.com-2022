@@ -420,7 +420,7 @@ export default function Home({}) {
           background="/img/hauntings-cover.webp"
         >
           <Heading>hauntings</Heading>
-          <Subtitle class="absolute top-4">
+          <Subtitle className="absolute top-4">
             an argument of ghosts, trapped in a webpage
           </Subtitle>
         </Section>
