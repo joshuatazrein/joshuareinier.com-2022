@@ -56,7 +56,6 @@ export default function Section(props) {
       start: "top top",
       pin: true,
       pinSpacing: false,
-      anticipatePin: 10,
     });
   }, []);
 
