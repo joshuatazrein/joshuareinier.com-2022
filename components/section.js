@@ -1,7 +1,4 @@
-import Link from "next/link";
 import { createRef, useContext, useEffect, useRef, useState } from "react";
-import Container from "./container";
-import useScrollSnap from "react-use-scroll-snap";
 import { gsap } from "gsap/dist/gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import AppContext from "../services/AppContext";
