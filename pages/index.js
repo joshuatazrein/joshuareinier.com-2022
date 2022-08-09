@@ -24,6 +24,7 @@ export default function Home({}) {
   const [filter, setFilter] = useState(false);
   const [search, setSearch] = useState("");
   const timeline = useRef();
+  const [mobile, setMobile] = useState(false);
 
   const sections = [];
   for (let i = 0; i < 21; i++) {
@@ -40,6 +41,7 @@ export default function Home({}) {
       window.matchMedia("(any-hover: none)").matches
     ) {
       $("body").addClass("snap-y snap-mandatory");
+      setMobile(true);
     } else {
       ScrollTrigger.create({
         snap: { snapTo: 1 / 21, duration: 0.3 },
@@ -96,7 +98,7 @@ export default function Home({}) {
     timeline.current = gsap.timeline();
   }, []);
 
-  const context = { filter, search, openSection, timeline };
+  const context = { filter, search, openSection, timeline, mobile };
 
   return (
     <AppContext.Provider value={context}>
