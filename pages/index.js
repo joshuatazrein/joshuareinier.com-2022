@@ -10,6 +10,8 @@ import $ from "jquery";
 import { gsap } from "gsap/dist/gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import AppContext from "../services/AppContext";
+import Audio from "../components/Audio";
+import PDF from "../components/PDF";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,15 +38,17 @@ export default function Home({}) {
   };
 
   useEffect(() => {
-    if (
-      $(window).width() >= window.innerWidth ||
-      window.matchMedia("(any-hover: none)").matches
-    ) {
+    if (window.matchMedia("(any-hover: none)").matches) {
       $("body").addClass("snap-y snap-mandatory");
       setMobile(true);
     } else {
       ScrollTrigger.create({
-        snap: { snapTo: 1 / 21, duration: 0.3 },
+        snap: {
+          snapTo: 1 / ($(".section").length - 1),
+          duration: 1,
+          directional: false,
+          ease: "power1.inOut",
+        },
       });
     }
   }, []);
@@ -371,17 +375,21 @@ export default function Home({}) {
           link="slowing-song"
           background="/img/slowing-song_cover.webp"
           linkText="listen"
+          noGrow
         >
           <Heading>slowing song</Heading>
           <Subtitle>
             for chamber orchestra and 3 voices: the gradual decomposition of "to
             breathe"
           </Subtitle>
-          <audio
-            src="/snd/slowing-song.mp3"
-            controls
-            className="w-full mt-4"
-          ></audio>
+          <Audio src="/snd/slowing-song.mp3" />
+          <div className="shrink grow my-1 overflow-scroll mt-1 w-1/2 h-fit ml-auto j-shadow-800">
+            <img
+              src="/img/slowing-song_score-cover.png"
+              width="100%"
+              style={{ filter: "invert(100%)" }}
+            />
+          </div>
         </Section>
 
         <Section
@@ -475,11 +483,11 @@ export default function Home({}) {
         >
           <Heading>place elegy</Heading>
           <Subtitle>a soundpoem of constantly shifting foundations</Subtitle>
-          <audio
+          <Audio
             src="/snd/place-elegy.mp3"
             className="w-full mt-4"
             controls
-          ></audio>
+          ></Audio>
           <Explanation>
             <p className="font-writing">
               &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -546,11 +554,18 @@ export default function Home({}) {
         >
           <Heading>317 feathers (the myth of icarus)</Heading>
           <Subtitle>voice, piano, &amp; 2 guitars: rising, falling</Subtitle>
-          <audio
+          <Audio
             src="/snd/317-feathers.mp3"
             controls
             className="w-full mt-4"
-          ></audio>
+          ></Audio>
+          <div className="shrink grow my-1 overflow-scroll mt-1 w-1/2 h-fit ml-auto j-shadow-800">
+            <img
+              src="/img/317-feathers_score-cover.png"
+              width="100%"
+              style={{ filter: "invert(100%)" }}
+            />
+          </div>
         </Section>
 
         <Section
@@ -592,7 +607,14 @@ export default function Home({}) {
           <Subtitle>
             voice, piano, flute, &amp; cello: poetry - give me...
           </Subtitle>
-          <audio src="/snd/spring.mp3" controls className="w-full mt-4"></audio>
+          <Audio src="/snd/spring.mp3" controls className="w-full mt-4"></Audio>
+          <div className="shrink grow my-1 overflow-scroll mt-1 w-2/3 h-fit ml-auto j-shadow-800">
+            <img
+              src="/img/spring_score-cover.png"
+              width="100%"
+              style={{ filter: "invert(100%)" }}
+            />
+          </div>
         </Section>
 
         <Section
@@ -622,11 +644,18 @@ export default function Home({}) {
         >
           <Heading>Phenomenology</Heading>
           <Subtitle>voice &amp; cello: waking in the dark</Subtitle>
-          <audio
+          <Audio
             src="/snd/phenomenology.mp3"
             controls
             className="w-full mt-4"
-          ></audio>
+          ></Audio>
+          <div className="shrink grow my-1 overflow-scroll mt-1 w-1/2 h-fit ml-auto j-shadow-800">
+            <img
+              src="/img/phenomenology_score-cover.png"
+              width="100%"
+              style={{ filter: "invert(100%)" }}
+            />
+          </div>
         </Section>
 
         <Section
@@ -665,11 +694,11 @@ export default function Home({}) {
         >
           <Heading>production of meanings</Heading>
           <Subtitle>gunshots of the typewriter</Subtitle>
-          <audio
+          <Audio
             src="/snd/production-of-meanings.mp3"
             controls
             className="w-full mt-4"
-          ></audio>
+          ></Audio>
         </Section>
 
         <Section

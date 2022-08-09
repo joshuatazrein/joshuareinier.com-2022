@@ -1,0 +1,3 @@
+.playArea:not(:hover) > .playHead {
+  transition: left 0.4s;
+}

@@ -5,7 +5,11 @@ export default function PDF(props) {
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div className="w-3/4 h-screen relative mx-auto my-2">
+    <div
+      className={
+        "w-3/4 h-screen relative mx-auto my-2 " + (props.className || "")
+      }
+    >
       <a
         href={props.src}
         target="_blank"

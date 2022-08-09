@@ -1,6 +1,7 @@
 import Title from "../components/title";
 import Container from "../components/container";
 import Explanation from "../components/explanation";
+import Audio from "../components/Audio";
 
 const title = "iamb";
 
@@ -20,7 +21,7 @@ export default function Iamb({}) {
           dismantle the iamb and piece it back together in its chaotic moment of
           origination.
         </Explanation>
-        <audio controls className="w-full mb-2" src="/snd/iamb.mp3"></audio>
+        <Audio controls className="w-full mb-2" src="/snd/iamb.mp3"></Audio>
         <img src="/img/iamb.png" className="mb-2 rounded" />
       </Container>
     </>

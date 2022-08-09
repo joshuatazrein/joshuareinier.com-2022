@@ -1,3 +1,4 @@
+import Audio from "../components/Audio";
 import Container from "../components/container";
 import Explanation from "../components/explanation";
 import Heading from "../components/heading";
@@ -22,11 +23,11 @@ export default function ProductionOfMeanings({}) {
           the level in which technology is integrated into how we communicate.
           What impacts does this have?{" "}
         </Explanation>
-        <audio
+        <Audio
           controls
           className="w-full mt-4"
           src="/snd/production-of-meanings.mp3"
-        ></audio>
+        ></Audio>
       </Container>
     </>
   );

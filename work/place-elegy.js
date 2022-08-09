@@ -1,3 +1,4 @@
+import Audio from "../components/Audio";
 import Container from "../components/container";
 import Explanation from "../components/explanation";
 import Heading from "../components/heading";
@@ -22,7 +23,7 @@ export default function PlaceElegy({}) {
           surrounded with inarticulate spectres reverberating the labor of
           breath.
         </Explanation>
-        <audio controls className="w-full" src="/snd/place-elegy.mp3"></audio>
+        <Audio controls className="w-full" src="/snd/place-elegy.mp3"></Audio>
         <div className="writing">
           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
           <i>here we are all dead</i>

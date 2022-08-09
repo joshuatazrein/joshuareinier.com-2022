@@ -1,3 +1,4 @@
+import Audio from "../components/Audio";
 import Container from "../components/container";
 import Explanation from "../components/explanation";
 import Heading from "../components/heading";
@@ -25,7 +26,7 @@ export default function SlowingSong({}) {
           Played by The Oberlin Conservatory Contemporary Ensemble, conducted by
           Tim Weiss
         </Explanation>
-        <audio controls className="w-full" src="/snd/slowing-song.mp3"></audio>
+        <Audio controls className="w-full" src="/snd/slowing-song.mp3"></Audio>
         <PDF src="/doc/slowing-song.pdf"></PDF>
         <div className="writing">
           <h2>1</h2>

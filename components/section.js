@@ -17,15 +17,8 @@ export default function Section(props) {
   const context = useContext(AppContext);
   const observer = useRef();
   const trigger = useRef();
-
-  if (inView && props.background && !testVideo(props.background)) {
-    propStyles.backgroundImage = `linear-gradient(
-      rgba(0, 0, 0, 0.33), 
-      rgba(0, 0, 0, 0.33)
-    ), url("${props.background}")`;
-    propStyles.backgroundPosition = "center";
-    propStyles.backgroundSize = "cover";
-  }
+  const thisTimeline = useRef();
+  const thisBackground = useRef();
 
   useEffect(() => {
     // create config object: rootMargin and threshold
@@ -51,19 +44,57 @@ export default function Section(props) {
 
     observer.current.observe(thisSection.current);
 
-    ScrollTrigger.create({
-      trigger: thisSection.current,
-      start: "top top",
-      pin: true,
-      pinSpacing: false,
-      anticipatePin: 1,
-    });
-  }, []);
+    if (inView) {
+      thisTimeline.current = gsap
+        .timeline({})
+        .from(
+          thisBackground.current,
+          {
+            top: -window.innerHeight,
+            duration: 1,
+            ease: "none",
+          },
+          0
+        )
+        .to(
+          thisSection.current,
+          {
+            opacity: 1,
+            duration: 1,
+            ease: "none",
+          },
+          0
+        );
+      ScrollTrigger.create({
+        trigger: thisSection.current,
+        start: "top top",
+        pin: true,
+        pinSpacing: false,
+        // anticipatePin: 1,
+      });
+      // fade in the section
+      ScrollTrigger.create({
+        trigger: thisSection.current,
+        start: "top bottom",
+        end: "top top",
+        animation: thisTimeline.current,
+        scrub: true,
+      });
+      console.log(thisBackground.current, window.innerHeight);
+      ScrollTrigger.create({
+        trigger: thisSection.current,
+        start: "top bottom",
+        end: "top top",
+        animation: thisTimeline.current,
+        scrub: true,
+      });
+    }
+  }, [inView]);
 
   return (
     <div
       ref={thisSection}
-      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col overflow-auto snap-start ${
+      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col overflow-auto snap-start opacity-0 ${
         props.className || ""
       } ${
         context.search || (context.filter && context.filter !== props.category)
@@ -74,8 +105,9 @@ export default function Section(props) {
     >
       {inView && (
         <>
-          {props.background && testVideo(props.background) && (
+          {props.background && testVideo(props.background) ? (
             <video
+              ref={thisBackground}
               autoPlay
               muted
               loop
@@ -84,18 +116,14 @@ export default function Section(props) {
                 props.background.slice(5, props.background.length - 5) + ".png"
               }`}
               src={props.background}
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                zIndex: 1,
-                maxWidth: "unset",
-                width: "100%",
-                height: "100%",
-                zIndex: 0,
-              }}
-              className="object-cover"
+              className="h-full w-full bottom-0 left-0 absolute z-0 object-cover"
             ></video>
+          ) : (
+            <img
+              ref={thisBackground}
+              src={props.background}
+              className="h-full w-full bottom-0 left-0 absolute z-0 object-cover"
+            ></img>
           )}
           <div
             className={`px-2 z-10 w-full h-full max-w-xl mx-auto flex flex-col ${
@@ -103,7 +131,7 @@ export default function Section(props) {
             }`}
           >
             {props.children}
-            <div className="bg-transparent z-10 grow"></div>
+            {!props.noGrow && <div className="bg-transparent z-10 grow"></div>}
 
             {props.linkExternal ? (
               <a

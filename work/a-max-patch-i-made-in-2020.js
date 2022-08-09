@@ -12,7 +12,7 @@ export default function AMaxPatch({}) {
         <Explanation>
           I produced this piece for a remote music technology class during the
           COVID lockdown. In it, I introduce the piece for the duration of the
-          piece, processing the Zoom audio to progressively glitch and distort
+          piece, processing the Zoom Audio to progressively glitch and distort
           the voice until it is intelligible. The piece slowly transforms the
           speaking voice into a computer-generated sawtooth wave, and then a
           spasming MIDI electric bass, becoming a cyborg speaker—or maybe it was

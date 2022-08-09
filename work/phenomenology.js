@@ -1,3 +1,4 @@
+import Audio from "../components/Audio";
 import Container from "../components/container";
 import Explanation from "../components/explanation";
 import Heading from "../components/heading";
@@ -19,7 +20,7 @@ export default function Phenomenology({}) {
           line up. The use of Sprechgesang makes this piece both formal and
           conversational.
         </Explanation>
-        <audio controls className="w-full" src="/snd/phenomenology.mp3"></audio>
+        <Audio controls className="w-full" src="/snd/phenomenology.mp3"></Audio>
         <PDF src="/doc/phenomenology.pdf"></PDF>
       </Container>
     </>
