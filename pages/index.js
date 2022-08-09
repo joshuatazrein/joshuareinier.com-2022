@@ -40,7 +40,6 @@ export default function Home({}) {
       window.matchMedia("(any-hover: none)").matches
     ) {
       $("body").addClass("snap-y snap-mandatory");
-      alert("worked");
     } else {
       ScrollTrigger.create({
         snap: { snapTo: 1 / 21, duration: 0.3 },

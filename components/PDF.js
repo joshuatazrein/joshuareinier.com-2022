@@ -14,7 +14,7 @@ export default function PDF(props) {
         <img src="/icon/fullscreen.svg" height={16} width={16} />
       </a>
       <iframe
-        src={props.src}
+        src={props.src + "#view=Fit"}
         className="mx-auto rounded relative w-full h-full"
         style={{
           filter: props.dark
