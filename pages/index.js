@@ -35,13 +35,18 @@ export default function Home({}) {
   };
 
   useEffect(() => {
-    if ($(window).width() >= window.innerWidth) {
-      // $("body").addClass("snap-y snap-mandatory");
+    if (
+      $(window).width() < window.innerWidth ||
+      window.matchMedia("(any-hover: none)").matches
+    ) {
+      $("body").addClass("snap-y snap-mandatory");
+      alert("worked");
+    } else {
+      ScrollTrigger.create({
+        snap: { snapTo: 1 / 21, duration: 0.3 },
+      });
     }
-    ScrollTrigger.create({
-      snap: { snapTo: 1 / 21, duration: 0.3 },
-    });
-  });
+  }, []);
 
   useEffect(() => {
     // freeze body scrolling on open of document
