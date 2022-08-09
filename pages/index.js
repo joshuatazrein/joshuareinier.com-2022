@@ -36,7 +36,7 @@ export default function Home({}) {
 
   useEffect(() => {
     if (
-      $(window).width() < window.innerWidth ||
+      $(window).width() >= window.innerWidth ||
       window.matchMedia("(any-hover: none)").matches
     ) {
       $("body").addClass("snap-y snap-mandatory");
