@@ -1,16 +1,25 @@
 import Link from "next/link";
-import { createRef, useEffect, useState } from "react";
+import { createRef, useContext, useEffect, useRef, useState } from "react";
 import Container from "./container";
+import useScrollSnap from "react-use-scroll-snap";
+import { gsap } from "gsap/dist/gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import AppContext from "../services/AppContext";
+
+gsap.registerPlugin(ScrollTrigger);
 
 function testVideo(url) {
   if (url.includes("/vid/")) return true;
 }
 
 export default function Section(props) {
-  const thisSection = createRef();
+  const thisSection = useRef();
   let propStyles = props.style || {};
   const [inView, setInView] = useState(false);
   const close = () => setOpen(false);
+  const context = useContext(AppContext);
+  const observer = useRef();
+  const trigger = useRef();
 
   if (inView && props.background && !testVideo(props.background)) {
     propStyles.backgroundImage = `linear-gradient(
@@ -22,18 +31,45 @@ export default function Section(props) {
   }
 
   useEffect(() => {
-    if (props.scrollMax > (props.scrollOrder - 1) * (window.innerHeight - 80)) {
-      setInView(true);
-    }
-  });
+    // create config object: rootMargin and threshold
+    // are two properties exposed by the interface
+    const config = {
+      rootMargin: "0px 0px 50px 0px",
+      threshold: 0,
+    };
+
+    // register the config object with an instance
+    // of intersectionObserver
+    observer.current = new IntersectionObserver(function (section, self) {
+      // process just the images that are intersecting.
+      // isIntersecting is a property exposed by the interface
+      if (section[0].isIntersecting) {
+        // custom function that copies the path to the img
+        // from data-src to src
+        setInView(true);
+        // the image is now in place, stop watching
+        self.unobserve(section[0].target);
+      }
+    }, config);
+
+    observer.current.observe(thisSection.current);
+
+    ScrollTrigger.create({
+      trigger: thisSection.current,
+      start: "top top",
+      pin: true,
+      pinSpacing: false,
+      snap: $(window).width() < window.innerWidth ? 1 : undefined,
+    });
+  }, []);
 
   return (
     <div
       ref={thisSection}
-      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col snap-start overflow-auto ${
+      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col overflow-auto snap-start ${
         props.className || ""
       } ${
-        props.search || (props.filter && props.filter !== props.category)
+        context.search || (context.filter && context.filter !== props.category)
           ? "hidden"
           : ""
       }`}
@@ -47,6 +83,9 @@ export default function Section(props) {
               muted
               loop
               playsInline
+              poster={`/img/${
+                props.background.slice(5, props.background.length - 5) + ".gif"
+              }`}
               src={props.background}
               style={{
                 position: "absolute",
@@ -80,7 +119,7 @@ export default function Section(props) {
             ) : (
               <button
                 className="border border-white rounded font-sans font-semibold w-full bg-semiblack-500 z-10 max-w-xl mx-auto block accent"
-                onClick={() => props.openSection(props.link)}
+                onClick={() => context.openSection(props.link)}
               >
                 {props.linkText || "read"}
               </button>

@@ -7,36 +7,50 @@ import url from "url";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import $ from "jquery";
+import { gsap } from "gsap/dist/gsap";
+import ScrollTrigger from "gsap/dist/ScrollTrigger";
+import AppContext from "../services/AppContext";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const DynamicViewer = dynamic(() => import("../components/Viewer"), {
   loading: () => <div></div>,
 });
 
 export default function Home({}) {
-  const [scrollMax, setScrollMax] = useState(0);
   const [section, setSection] = useState("");
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
   const [filter, setFilter] = useState(false);
   const [search, setSearch] = useState("");
+  const timeline = useRef();
+
+  const sections = [];
+  for (let i = 0; i < 21; i++) {
+    sections.push(useRef());
+  }
 
   const triggerFilter = (text) => {
-    setScrollMax(Number.POSITIVE_INFINITY);
     setFilter(text);
   };
 
   useEffect(() => {
-    $("body").addClass("snap-y snap-mandatory");
+    if ($(window).width() >= window.innerWidth) {
+      $("body").addClass("snap-y snap-mandatory");
+    }
   });
 
   useEffect(() => {
     // freeze body scrolling on open of document
     if (open) {
-      setTimeout(() => $("body").css("overflow-y", "hidden"), 1000);
+      $("body").css("overflow-y", "hidden");
+      console.log("open");
     } else if (menu) {
       $("body").css("overflow-y", "hidden");
     } else {
-      $("body").css("overflow-y", "auto");
+      if ($("body").css("overflow-y") !== "auto") {
+        $("body").css("overflow-y", "auto");
+      }
     }
   }, [open, menu]);
 
@@ -72,21 +86,13 @@ export default function Home({}) {
   }, []);
 
   useEffect(() => {
-    function handleScroll() {
-      if ($(window).scrollTop() > scrollMax)
-        setScrollMax($(window).scrollTop());
-      console.log(scrollMax);
-    }
+    timeline.current = gsap.timeline();
+  }, []);
 
-    $(window).on("scroll", handleScroll);
-
-    return () => {
-      $(window).off("scroll", handleScroll);
-    };
-  });
+  const context = { filter, search, openSection, timeline };
 
   return (
-    <>
+    <AppContext.Provider value={context}>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -224,7 +230,7 @@ export default function Home({}) {
         <DynamicViewer link={section}></DynamicViewer>
       </div>
       <div>
-        <div className="w-full h-screen relative">
+        <div className="w-full h-screen relative section">
           <img
             src="/img/home_cover.webp"
             className="w-full h-full object-cover z-0"
@@ -246,47 +252,33 @@ export default function Home({}) {
             ></img>
           </button>
         </div>
+
         <Section
-          search={search}
-          filter={filter}
           category="multimedia"
-          openSection={openSection}
           link="rain/index.html"
           linkA={true}
           background="/vid/rain_cover.webm"
           linkText="view"
-          scrollMax={scrollMax}
-          scrollOrder={1}
         >
           <Heading>rain</Heading>
           <Subtitle>a kinetic digital poem</Subtitle>
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="multimedia"
-          openSection={openSection}
           link="what-ive-done"
           className="relative"
           linkText="watch"
           background="/vid/what-ive-done_cover.webm"
-          scrollMax={scrollMax}
-          scrollOrder={2}
         >
           <Heading>What I've Done</Heading>
           <Subtitle>It's what I've done.</Subtitle>
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="theory"
-          openSection={openSection}
           link="demons-of-analogy"
           background="/img/demons-analogy_cover.webp"
-          scrollMax={scrollMax}
-          scrollOrder={3}
         >
           <Heading>Demons of Analogy</Heading>
           <Subtitle>
@@ -315,30 +307,20 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="multimedia"
-          openSection={openSection}
           link="am/index.html"
           linkA={true}
           background="/vid/am_cover.webm"
           linkText="view"
-          scrollMax={scrollMax}
-          scrollOrder={4}
         >
           <Heading>AM</Heading>
           <Subtitle>the static of being</Subtitle>
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="text"
-          openSection={openSection}
           link="progress-1-23"
           background="/img/progress_cover.webp"
-          scrollMax={scrollMax}
-          scrollOrder={5}
         >
           <Heading>Progress 1-23</Heading>
           <Subtitle>
@@ -376,15 +358,10 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="sound"
-          openSection={openSection}
           link="slowing-song"
           background="/img/slowing-song_cover.webp"
           linkText="listen"
-          scrollMax={scrollMax}
-          scrollOrder={6}
         >
           <Heading>slowing song</Heading>
           <Subtitle>
@@ -399,16 +376,11 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="theory"
-          openSection={openSection}
           link="https://mackseyjournal.scholasticahq.com/article/21771"
           linkA
           linkExternal
           background="/img/reclaiming-space_cover.webp"
-          scrollMax={scrollMax}
-          scrollOrder={7}
         >
           <Heading>Reclaiming Space</Heading>
           <Subtitle>
@@ -442,15 +414,10 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="multimedia"
-          openSection={openSection}
           link="hauntings/index.html"
           linkA={true}
           background="/img/hauntings-cover.webp"
-          scrollMax={scrollMax}
-          scrollOrder={8}
         >
           <Heading>hauntings</Heading>
           <Subtitle class="absolute top-4">
@@ -459,17 +426,12 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="sound"
-          openSection={openSection}
           link="https://probablevoltages.bandcamp.com/album/the-self-prescribing-doctors-union"
           linkA
           linkExternal
           background="/img/self-prescribing-doctors_cover.webp"
           linkText="listen"
-          scrollMax={scrollMax}
-          scrollOrder={9}
         >
           <Heading>The Self-Prescribing Doctors Union</Heading>
           <Subtitle>Jazz-folk-free-noise quintet</Subtitle>
@@ -487,30 +449,20 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="multimedia"
-          openSection={openSection}
           link="a-max-patch-i-made-in-2020"
           background="/vid/a-max-patch_cover.webm"
           linkText="watch"
-          scrollMax={scrollMax}
-          scrollOrder={10}
         >
           <Heading>a max patch i made in 2020</Heading>
           <Subtitle>um, well, 2020. performance for solo zoomer</Subtitle>
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="multimedia"
-          openSection={openSection}
           link="place-elegy"
           background="/img/place-elegy_cover.webp"
           linkText="read & listen"
-          scrollMax={scrollMax}
-          scrollOrder={11}
         >
           <Heading>place elegy</Heading>
           <Subtitle>a soundpoem of constantly shifting foundations</Subtitle>
@@ -550,15 +502,10 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="text"
-          openSection={openSection}
           link="https://twogroves.com/issues/fall2019#letters"
           linkA
           background="/img/letters-to-jed_cover.webp"
-          scrollMax={scrollMax}
-          scrollOrder={12}
         >
           <Heading>Letters to Jed</Heading>
           <Subtitle>an elegy for my advisor</Subtitle>
@@ -583,15 +530,10 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="sound"
-          openSection={openSection}
           link="317-feathers"
           background="/img/317-feathers_cover.webp"
           linkText="listen"
-          scrollMax={scrollMax}
-          scrollOrder={13}
         >
           <Heading>317 feathers (the myth of icarus)</Heading>
           <Subtitle>voice, piano, &amp; 2 guitars: rising, falling</Subtitle>
@@ -603,14 +545,9 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="text"
-          openSection={openSection}
           link="floating-world-variations"
           background="/img/floating-world-variations_cover.webp"
-          scrollMax={scrollMax}
-          scrollOrder={14}
         >
           <Heading>floating world variations</Heading>
           <Subtitle>dancing around &amp; within images</Subtitle>
@@ -637,15 +574,10 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="sound"
-          openSection={openSection}
           link="spring"
           background="/img/spring_cover.webp"
           linkText="listen"
-          scrollMax={scrollMax}
-          scrollOrder={15}
         >
           <Heading>spring</Heading>
           <Subtitle>
@@ -655,14 +587,9 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="text"
-          openSection={openSection}
           link="quarantine-exegesis"
           background="/img/quarantine-exegesis_cover.webp"
-          scrollMax={scrollMax}
-          scrollOrder={16}
         >
           <Heading>Quarantine Exegesis</Heading>
           <Subtitle>prose-poem cycle for a voice in a room, for eons</Subtitle>
@@ -679,15 +606,10 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="sound"
-          openSection={openSection}
           link="phenomenology"
           background="/img/phenomenology_cover.webp"
           linkText="listen"
-          scrollMax={scrollMax}
-          scrollOrder={17}
         >
           <Heading>Phenomenology</Heading>
           <Subtitle>voice &amp; cello: waking in the dark</Subtitle>
@@ -699,14 +621,9 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="text"
-          openSection={openSection}
           link="paired-tense-theses"
           background="/img/paired-tense-theses_cover.webp"
-          scrollMax={scrollMax}
-          scrollOrder={18}
         >
           <Heading>(pa)i(re)d te(n)se (theses)</Heading>
           <Subtitle>the inner meaning hidden within the outer</Subtitle>
@@ -732,15 +649,10 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="sound"
-          openSection={openSection}
           link="production-of-meanings"
           background="/img/production-of-meanings_cover.webp"
           linkText="listen"
-          scrollMax={scrollMax}
-          scrollOrder={19}
         >
           <Heading>production of meanings</Heading>
           <Subtitle>gunshots of the typewriter</Subtitle>
@@ -752,14 +664,9 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="text"
-          openSection={openSection}
           link="la-neige-unknown"
           background="/img/la-neige-unknown_cover.webp"
-          scrollMax={scrollMax}
-          scrollOrder={20}
         >
           <Heading>
             <i>la neige</i> unknown
@@ -831,22 +738,17 @@ export default function Home({}) {
         </Section>
 
         <Section
-          search={search}
-          filter={filter}
           category="sound"
-          openSection={openSection}
           link="https://www.youtube.com/embed/h4AUj_XyRig"
           linkA
           linkText="watch"
-          scrollMax={scrollMax}
-          scrollOrder={21}
           background="/vid/leaving-suite_cover.webm"
         >
           <Heading>The Leaving Suite</Heading>
           <Subtitle>a song-cycle about leaving childhood behind</Subtitle>
         </Section>
       </div>
-    </>
+    </AppContext.Provider>
   );
 }
 
