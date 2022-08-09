@@ -61,7 +61,7 @@ export default function Section(props) {
           {
             opacity: 1,
             duration: 1,
-            ease: "none",
+            ease: "power1",
           },
           0
         );
@@ -73,14 +73,6 @@ export default function Section(props) {
         // anticipatePin: 1,
       });
       // fade in the section
-      ScrollTrigger.create({
-        trigger: thisSection.current,
-        start: "top bottom",
-        end: "top top",
-        animation: thisTimeline.current,
-        scrub: true,
-      });
-      console.log(thisBackground.current, window.innerHeight);
       ScrollTrigger.create({
         trigger: thisSection.current,
         start: "top bottom",

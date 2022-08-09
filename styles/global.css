@@ -59,6 +59,10 @@ tab {
   box-shadow: 0 0 12px 12px #000000cc;
 }
 
+.j-shadow-invert {
+  box-shadow: 0 0 12px 12px #ffffffcc;
+}
+
 .blur-edge {
   box-shadow: 0 0 8px 8px #00000080 inset;
 }

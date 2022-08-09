@@ -12,6 +12,7 @@ import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import AppContext from "../services/AppContext";
 import Audio from "../components/Audio";
 import PDF from "../components/PDF";
+import ScoreCover from "../components/ScoreCover";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,18 +40,17 @@ export default function Home({}) {
 
   useEffect(() => {
     if (window.matchMedia("(any-hover: none)").matches) {
-      $("body").addClass("snap-y snap-mandatory");
       setMobile(true);
-    } else {
-      ScrollTrigger.create({
-        snap: {
-          snapTo: 1 / ($(".section").length - 1),
-          duration: 1,
-          directional: false,
-          ease: "power1.inOut",
-        },
-      });
     }
+
+    ScrollTrigger.create({
+      snap: {
+        snapTo: 1 / ($(".section").length - 1),
+        duration: 1,
+        directional: false,
+        ease: "power1.inOut",
+      },
+    });
   }, []);
 
   useEffect(() => {
@@ -383,13 +383,10 @@ export default function Home({}) {
             breathe"
           </Subtitle>
           <Audio src="/snd/slowing-song.mp3" />
-          <div className="shrink grow my-1 overflow-scroll mt-1 w-1/2 h-fit ml-auto j-shadow-800">
-            <img
-              src="/img/slowing-song_score-cover.png"
-              width="100%"
-              style={{ filter: "invert(100%)" }}
-            />
-          </div>
+          <ScoreCover
+            className="w-1/2"
+            src="/img/slowing-song_score-cover.png"
+          />
         </Section>
 
         <Section
@@ -559,13 +556,10 @@ export default function Home({}) {
             controls
             className="w-full mt-4"
           ></Audio>
-          <div className="shrink grow my-1 overflow-scroll mt-1 w-1/2 h-fit ml-auto j-shadow-800">
-            <img
-              src="/img/317-feathers_score-cover.png"
-              width="100%"
-              style={{ filter: "invert(100%)" }}
-            />
-          </div>
+          <ScoreCover
+            className="w-1/2"
+            src="/img/317-feathers_score-cover.png"
+          />
         </Section>
 
         <Section
@@ -608,13 +602,7 @@ export default function Home({}) {
             voice, piano, flute, &amp; cello: poetry - give me...
           </Subtitle>
           <Audio src="/snd/spring.mp3" controls className="w-full mt-4"></Audio>
-          <div className="shrink grow my-1 overflow-scroll mt-1 w-2/3 h-fit ml-auto j-shadow-800">
-            <img
-              src="/img/spring_score-cover.png"
-              width="100%"
-              style={{ filter: "invert(100%)" }}
-            />
-          </div>
+          <ScoreCover className="w-2/3" src="/img/spring_score-cover.png" />
         </Section>
 
         <Section
@@ -649,13 +637,10 @@ export default function Home({}) {
             controls
             className="w-full mt-4"
           ></Audio>
-          <div className="shrink grow my-1 overflow-scroll mt-1 w-1/2 h-fit ml-auto j-shadow-800">
-            <img
-              src="/img/phenomenology_score-cover.png"
-              width="100%"
-              style={{ filter: "invert(100%)" }}
-            />
-          </div>
+          <ScoreCover
+            className="w-1/2"
+            src="/img/phenomenology_score-cover.png"
+          />
         </Section>
 
         <Section
