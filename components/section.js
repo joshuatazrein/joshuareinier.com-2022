@@ -31,7 +31,7 @@ export default function Section(props) {
     // create config object: rootMargin and threshold
     // are two properties exposed by the interface
     const config = {
-      rootMargin: "0px 0px 50px 0px",
+      rootMargin: `0px 0px ${window.innerHeight}px 0px`,
       threshold: 0,
     };
 
@@ -56,7 +56,6 @@ export default function Section(props) {
       start: "top top",
       pin: true,
       pinSpacing: false,
-      snap: $(window).width() < window.innerWidth ? 1 : undefined,
     });
   }, []);
 

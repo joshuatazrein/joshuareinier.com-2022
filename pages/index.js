@@ -36,8 +36,11 @@ export default function Home({}) {
 
   useEffect(() => {
     if ($(window).width() >= window.innerWidth) {
-      $("body").addClass("snap-y snap-mandatory");
+      // $("body").addClass("snap-y snap-mandatory");
     }
+    ScrollTrigger.create({
+      snap: { snapTo: 1 / 21, duration: 0.3 },
+    });
   });
 
   useEffect(() => {
