@@ -50,7 +50,7 @@ export default function Section(props) {
         .from(
           thisBackground.current,
           {
-            top: -window.innerHeight,
+            top: "-100%",
             duration: 1,
             ease: "none",
           },
@@ -70,7 +70,7 @@ export default function Section(props) {
         start: "top top",
         pin: true,
         pinSpacing: false,
-        // anticipatePin: 1,
+        anticipatePin: 0.5,
       });
       // fade in the section
       ScrollTrigger.create({

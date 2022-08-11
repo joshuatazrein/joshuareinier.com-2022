@@ -29,6 +29,7 @@ export default function Home({}) {
   const [search, setSearch] = useState("");
   const timeline = useRef();
   const [mobile, setMobile] = useState(false);
+  const snapper = useRef();
 
   const sections = [];
   for (let i = 0; i < 21; i++) {
@@ -44,14 +45,18 @@ export default function Home({}) {
       setMobile(true);
     }
 
-    ScrollTrigger.create({
-      snap: {
-        snapTo: 1 / ($(".section").length - 1),
-        duration: 1,
-        directional: false,
-        ease: "power1.inOut",
-      },
-    });
+    const createSnap = () => {
+      snapper.current = ScrollTrigger.create({
+        snap: {
+          snapTo: 1 / ($(".section").length - 1),
+          duration: 1,
+          directional: false,
+          ease: "power1.inOut",
+        },
+      });
+    };
+
+    createSnap();
   }, []);
 
   useEffect(() => {
@@ -382,7 +387,7 @@ export default function Home({}) {
             for chamber orchestra and 3 voices: the gradual decomposition of "to
             breathe"
           </Subtitle>
-          {/* <SmallAudio duration={30} src="/snd/slowing-song.mp3" /> */}
+          <SmallAudio duration={4} src="/snd/slowing-song.mp3" />
           <ScoreCover src="/img/slowing-song_score-cover.png" />
         </Section>
 

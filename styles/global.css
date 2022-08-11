@@ -39,6 +39,13 @@ tab {
   width: 0.5in;
 }
 
+.ellipsis {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}
+
 .accent {
   @apply text-sky-200;
 }
