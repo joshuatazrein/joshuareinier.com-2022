@@ -20,7 +20,7 @@ export default function ScoreCover(props) {
         maxWidth: "calc(100% - 100px)",
       }}
       className={
-        "m-1 ml-auto j-shadow-800 bg-semiblack-800 shrink h-full overflow-clip " +
+        "m-1 ml-auto j-shadow-800 bg-semiblack-800 shrink h-full overflow-hidden " +
         (props.className || "")
       }
     >
