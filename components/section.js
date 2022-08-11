@@ -70,7 +70,6 @@ export default function Section(props) {
         start: "top top",
         pin: true,
         pinSpacing: false,
-        anticipatePin: 0.5,
       });
       // fade in the section
       ScrollTrigger.create({

@@ -193,10 +193,12 @@ export default function Home({}) {
         </button>
       </div>
       <div
-        className={`fixed bg-semiblack-800 w-screen h-screen z-30 ${
-          !menu ? "hidden" : ""
-        } top-0 left-0 w-screen h-screen p-4 overflow-auto pt-14`}
-        style={{ transition: "opacity 1s" }}
+        className={`fixed bg-semiblack-800 w-screen h-screen z-30 top-0 left-0 p-4 overflow-auto pt-14`}
+        style={{
+          transition: "opacity 1s, z-index 1s",
+          zIndex: menu ? 30 : -1,
+          opacity: menu ? 1 : 0,
+        }}
       >
         <p>
           <img
