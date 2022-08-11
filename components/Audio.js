@@ -12,6 +12,9 @@ export default function Audio(props) {
 
   useEffect(() => {
     if (play) {
+      $("audio")
+        .toArray()
+        .forEach((x) => x.pause());
       thisAudio.current.play();
     } else {
       thisAudio.current.pause();
@@ -23,11 +26,17 @@ export default function Audio(props) {
       (thisAudio.current.currentTime = 0);
     thisAudio.current.ontimeupdate = () =>
       setProgress(thisAudio.current.currentTime / thisAudio.current.duration);
-  }, []);
 
-  useEffect(() => {
-    setPlayerWidth($(thisFrame.current).width());
-  }, [playerWidth]);
+    const updatePlayerWidth = () => {
+      setPlayerWidth($(thisFrame.current).width());
+    };
+
+    $(window).on("resize", updatePlayerWidth);
+
+    return () => {
+      $(window).off("resize", updatePlayerWidth);
+    };
+  }, []);
 
   return (
     <div className="w-full flex-none flex items-center rounded border border-slate-400 overflow-hidden my-1 h-5">
@@ -53,7 +62,6 @@ export default function Audio(props) {
           const newProgress =
             (ev.pageX - $(thisFrame.current).offset().left) /
             $(thisFrame.current).width();
-          console.log(newProgress);
           thisAudio.current.currentTime =
             thisAudio.current.duration * newProgress;
         }}
@@ -65,7 +73,7 @@ export default function Audio(props) {
         <div
           className={`absolute w-0 h-full border-2 border-sky-200 top-0 ${styles.playHead}`}
           style={{
-            left: playheadOpen ? playheadLocation : progress * playerWidth,
+            left: playheadOpen ? playheadLocation : `${progress * 100}%`,
           }}
         ></div>
       </div>

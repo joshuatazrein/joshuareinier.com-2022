@@ -1,17 +1,15 @@
 export default function ScoreCover(props) {
   return (
-    <div
+    <img
+      src={props.src}
+      style={{
+        maxWidth: "calc(100% - 80px)",
+      }}
+      width="50%"
       className={
-        "shrink grow my-1 overflow-auto mt-1 h-fit ml-auto " +
-          props.className || ""
+        "m-1 ml-auto j-shadow-800 bg-semiblack-800 shrink " +
+        (props.className || "")
       }
-    >
-      <img
-        className="j-shadow-invert"
-        src={props.src}
-        width="100%"
-        style={{ filter: "invert(100%)" }}
-      />
-    </div>
+    />
   );
 }

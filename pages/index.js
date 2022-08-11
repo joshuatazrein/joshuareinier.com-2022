@@ -13,6 +13,7 @@ import AppContext from "../services/AppContext";
 import Audio from "../components/Audio";
 import PDF from "../components/PDF";
 import ScoreCover from "../components/ScoreCover";
+import SmallAudio from "../components/SmallAudio";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -375,18 +376,14 @@ export default function Home({}) {
           link="slowing-song"
           background="/img/slowing-song_cover.webp"
           linkText="listen"
-          noGrow
         >
           <Heading>slowing song</Heading>
           <Subtitle>
             for chamber orchestra and 3 voices: the gradual decomposition of "to
             breathe"
           </Subtitle>
-          <Audio src="/snd/slowing-song.mp3" />
-          <ScoreCover
-            className="w-1/2"
-            src="/img/slowing-song_score-cover.png"
-          />
+          {/* <SmallAudio duration={30} src="/snd/slowing-song.mp3" /> */}
+          <ScoreCover src="/img/slowing-song_score-cover.png" />
         </Section>
 
         <Section
@@ -480,11 +477,7 @@ export default function Home({}) {
         >
           <Heading>place elegy</Heading>
           <Subtitle>a soundpoem of constantly shifting foundations</Subtitle>
-          <Audio
-            src="/snd/place-elegy.mp3"
-            className="w-full mt-4"
-            controls
-          ></Audio>
+          <SmallAudio duration={30} src="/snd/place-elegy.mp3" />
           <Explanation>
             <p className="font-writing">
               &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
@@ -551,15 +544,8 @@ export default function Home({}) {
         >
           <Heading>317 feathers (the myth of icarus)</Heading>
           <Subtitle>voice, piano, &amp; 2 guitars: rising, falling</Subtitle>
-          <Audio
-            src="/snd/317-feathers.mp3"
-            controls
-            className="w-full mt-4"
-          ></Audio>
-          <ScoreCover
-            className="w-1/2"
-            src="/img/317-feathers_score-cover.png"
-          />
+          <SmallAudio duration={30} src="/snd/317-feathers.mp3" />
+          <ScoreCover src="/img/317-feathers_score-cover.png" />
         </Section>
 
         <Section
@@ -601,8 +587,8 @@ export default function Home({}) {
           <Subtitle>
             voice, piano, flute, &amp; cello: poetry - give me...
           </Subtitle>
-          <Audio src="/snd/spring.mp3" controls className="w-full mt-4"></Audio>
-          <ScoreCover className="w-2/3" src="/img/spring_score-cover.png" />
+          <SmallAudio duration={30} src="/snd/spring.mp3" />
+          <ScoreCover src="/img/spring_score-cover.png" />
         </Section>
 
         <Section
@@ -632,15 +618,8 @@ export default function Home({}) {
         >
           <Heading>Phenomenology</Heading>
           <Subtitle>voice &amp; cello: waking in the dark</Subtitle>
-          <Audio
-            src="/snd/phenomenology.mp3"
-            controls
-            className="w-full mt-4"
-          ></Audio>
-          <ScoreCover
-            className="w-1/2"
-            src="/img/phenomenology_score-cover.png"
-          />
+          <SmallAudio duration={30} src="/snd/phenomenology.mp3" />
+          <ScoreCover src="/img/phenomenology_score-cover.png" />
         </Section>
 
         <Section
@@ -679,11 +658,7 @@ export default function Home({}) {
         >
           <Heading>production of meanings</Heading>
           <Subtitle>gunshots of the typewriter</Subtitle>
-          <Audio
-            src="/snd/production-of-meanings.mp3"
-            controls
-            className="w-full mt-4"
-          ></Audio>
+          <SmallAudio duration={30} src="/snd/production-of-meanings.mp3" />
         </Section>
 
         <Section
