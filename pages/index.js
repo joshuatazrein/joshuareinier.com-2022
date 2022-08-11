@@ -389,7 +389,7 @@ export default function Home({}) {
             for chamber orchestra and 3 voices: the gradual decomposition of "to
             breathe"
           </Subtitle>
-          <SmallAudio duration={4} src="/snd/slowing-song.mp3" />
+          <SmallAudio duration={35} src="/snd/slowing-song.mp3" />
           <ScoreCover src="/img/slowing-song_score-cover.png" />
         </Section>
 
