@@ -269,7 +269,7 @@ text a {
 .navbar {
   position: fixed;
   top: 0;
-  right: 0;
+  right: 24px;
   margin-top: 15px;
   box-sizing: border-box;
   z-index: 1000;

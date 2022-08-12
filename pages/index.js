@@ -45,18 +45,40 @@ export default function Home({}) {
       setMobile(true);
     }
 
-    const createSnap = () => {
-      snapper.current = ScrollTrigger.create({
-        snap: {
-          snapTo: 1 / ($(".section").length - 1),
-          duration: 1,
-          directional: false,
-          ease: "power1.inOut",
-        },
-      });
+    const chrome = () => {
+      var isChromium = window.chrome;
+      var winNav = window.navigator;
+      var vendorName = winNav.vendor;
+      var isOpera = typeof window.opr !== "undefined";
+      var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
+      var isIOSChrome = winNav.userAgent.match("CriOS");
+
+      if (isIOSChrome) {
+        // is Google Chrome on IOS
+        return false;
+      } else if (
+        isChromium !== null &&
+        typeof isChromium !== "undefined" &&
+        vendorName === "Google Inc." &&
+        isOpera === false &&
+        isIEedge === false
+      ) {
+        // is Google Chrome
+        return true;
+      } else {
+        // not Google Chrome
+        return false;
+      }
     };
 
-    createSnap();
+    snapper.current = ScrollTrigger.create({
+      snap: {
+        snapTo: 1 / ($(".section").length - 1),
+        duration: 0.75,
+        directional: false,
+        ease: "power1.inOut",
+      },
+    });
   }, []);
 
   useEffect(() => {
@@ -251,7 +273,7 @@ export default function Home({}) {
         <DynamicViewer link={section}></DynamicViewer>
       </div>
       <div>
-        <div className="w-full h-screen relative section snap-start">
+        <div className="w-full h-screen relative section snap-center">
           <img
             src="/img/home_cover.webp"
             className="w-full h-full object-cover z-0"

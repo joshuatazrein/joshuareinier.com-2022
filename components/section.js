@@ -85,14 +85,14 @@ export default function Section(props) {
   return (
     <div
       ref={thisSection}
-      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col overflow-auto snap-start opacity-0 ${
+      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col overflow-auto snap-center opacity-0 ${
         props.className || ""
       } ${
         context.search || (context.filter && context.filter !== props.category)
           ? "hidden"
           : ""
       }`}
-      style={{ ...propStyles }}
+      style={{ ...propStyles, scrollSnapStop: "always" }}
     >
       {inView && (
         <>
