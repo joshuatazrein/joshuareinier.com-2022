@@ -7,7 +7,7 @@ export default function Audio(props) {
   const [play, setPlay] = useState(false);
   const [progress, setProgress] = useState(0.2);
   const [playheadLocation, setPlayheadLocation] = useState(0);
-  const [playheadOpen, setPlayheadOpen] = useState(false);
+  const [playheadOpen, setPlayheadOpen] = useState(true);
   const [playerWidth, setPlayerWidth] = useState(0);
 
   useEffect(() => {
@@ -53,7 +53,6 @@ export default function Audio(props) {
         ref={thisFrame}
         className={`h-full relative w-full shrink d-flex bg-semislate-800 ${styles.playArea}`}
         onMouseMove={(ev) => {
-          console.log("mouseover");
           setPlayheadLocation(ev.pageX - $(thisFrame.current).offset().left);
         }}
         onMouseEnter={() => setPlayheadOpen(true)}
