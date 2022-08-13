@@ -8,7 +8,6 @@ export default function Explanation(props) {
       $(thisDiv.current).innerHeight() /
       Number($(thisDiv.current).css("line-height").slice(0, 2));
     $(thisDiv.current).css("-webkit-line-clamp", `${Math.floor(lineHeight)}`);
-    console.log($(thisDiv.current).height());
   };
 
   useEffect(() => {

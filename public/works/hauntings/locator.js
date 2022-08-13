@@ -39,14 +39,12 @@ var htmlcol2 = document.getElementsByTagName("svg");
 //       const heightvol = Math.abs(snd.attr('top') - centY) / distY
 //       const widthvol = Math.abs(snd.attr('left') - centX) / distX
 //       if (snd.attr('src') == 'sounds/more/fire.mp3') {
-//         console.log('fire', widthvol, centX, distX, snd.attr('left'))
 //       }
 //       snd[0].volume = 1.0 - Math.max(heightvol, widthvol)
 //     } else {
 //       snd[0].volume = 0
 //     }
 //   }
-//   console.log(sawsounds.map((x) => {return (x.attr('src') + ',' + x[0].volume)}));
 // }
 
 function divlogupdate(i) {
@@ -248,7 +246,6 @@ function getOffset(element) {
   }
   // scalefactor = $('body').css('zoom')
   // offset.forEach(i => { i /= scalefactor })
-  // console.log(scalefactor, offset)
   return offset;
 }
 
@@ -258,7 +255,6 @@ window.onload = function () {
       window.location.href.slice(window.location.href.lastIndexOf("#") + 1)
     );
     let load = loadeditem.getAttribute("load").split(" ");
-    console.log(load);
     if (load[2] != "-") {
       if (load[2] == "fit") {
         // establishes fit for item

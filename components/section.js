@@ -13,10 +13,8 @@ export default function Section(props) {
   const thisSection = useRef();
   let propStyles = props.style || {};
   const [inView, setInView] = useState(false);
-  const close = () => setOpen(false);
   const context = useContext(AppContext);
   const observer = useRef();
-  const trigger = useRef();
   const thisTimeline = useRef();
   const thisBackground = useRef();
 
@@ -43,49 +41,48 @@ export default function Section(props) {
     }, config);
 
     observer.current.observe(thisSection.current);
+  }, []);
 
+  useEffect(() => {
     if (inView) {
-      thisTimeline.current = gsap
-        .timeline({})
-        .from(
-          thisBackground.current,
-          {
-            top: "-100%",
-            duration: 1,
-            ease: "none",
-          },
-          0
-        )
-        .to(
-          thisSection.current,
-          {
-            opacity: 1,
-            duration: 1,
-            ease: "power1",
-          },
-          0
-        );
-      ScrollTrigger.create({
-        trigger: thisSection.current,
-        start: "top top",
-        pin: true,
-        pinSpacing: false,
-      });
-      // fade in the section
-      ScrollTrigger.create({
-        trigger: thisSection.current,
-        start: "top bottom",
-        end: "top top",
-        animation: thisTimeline.current,
-        scrub: true,
-      });
+      // thisTimeline.current = gsap
+      //   .timeline({})
+      //   .fromTo(
+      //     thisBackground.current,
+      //     {
+      //       top: "-100%",
+      //     },
+      //     {
+      //       top: "100%",
+      //       duration: 2,
+      //       ease: "none",
+      //     },
+      //     0
+      //   )
+      //   .to(
+      //     thisSection.current,
+      //     {
+      //       opacity: 1,
+      //       duration: 1,
+      //       ease: "power1",
+      //     },
+      //     0
+      //   );
+      // ScrollTrigger.create({
+      //   id: props.link,
+      //   trigger: thisSection.current,
+      //   start: "top bottom",
+      //   end: "bottom top",
+      //   animation: thisTimeline.current,
+      //   scrub: true,
+      // });
     }
   }, [inView]);
 
   return (
     <div
       ref={thisSection}
-      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col overflow-auto snap-center opacity-0 ${
+      className={`section relative w-full h-screen p-4 pt-[60px] flex flex-col overflow-clip snap-center opacity-100 ${
         props.className || ""
       } ${
         context.search || (context.filter && context.filter !== props.category)

@@ -40,7 +40,6 @@ export default function Locator(settings) {
   const clickParameter = (ev) => {
     switch (saveParameter) {
       case "left":
-        console.log("clicked");
         navigator.clipboard.writeText(`left: ${pixelsToCss(ev.clientX, "vw")}`);
         break;
       case "top":

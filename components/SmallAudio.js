@@ -40,13 +40,10 @@ export default function SmallAudio(props) {
       thisAudio.current.currentTime >= props.duration - 1 &&
       !fadeOut.current
     ) {
-      console.log("setting fade");
       fadeOut.current = setInterval(() => {
         if (thisAudio.current.volume > 0.2) {
           thisAudio.current.volume -= 0.1;
         } else {
-          console.log("no volume");
-          console.log(fadeOut.current);
           clearInterval(fadeOut.current);
           fadeOut.current = undefined;
           setPlay(false);

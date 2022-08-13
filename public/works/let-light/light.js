@@ -9,7 +9,6 @@ window.particleNumber = 100;
 //     ? Number(document.cookie.slice(document.cookie.indexOf("=") + 1))
 //     : 0;
 window.i = 0;
-console.log(document.cookie);
 let garamond;
 
 function preload() {

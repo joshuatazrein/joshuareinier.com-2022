@@ -37,6 +37,7 @@ export default function Home({}) {
   }
 
   const triggerFilter = (text) => {
+    $(window).scrollTop(0);
     setFilter(text);
   };
 
@@ -70,22 +71,12 @@ export default function Home({}) {
         return false;
       }
     };
-
-    snapper.current = ScrollTrigger.create({
-      snap: {
-        snapTo: 1 / ($(".section").length - 1),
-        duration: 0.75,
-        directional: false,
-        ease: "power1.inOut",
-      },
-    });
   }, []);
 
   useEffect(() => {
     // freeze body scrolling on open of document
     if (open) {
       $("body").css("overflow-y", "hidden");
-      console.log("open");
     } else if (menu) {
       $("body").css("overflow-y", "hidden");
     } else {
@@ -94,12 +85,6 @@ export default function Home({}) {
       }
     }
   }, [open, menu]);
-
-  useEffect(() => {
-    if (filter) {
-      $(window).scrollTop(window.innerHeight);
-    }
-  }, [filter]);
 
   const toggleMenu = () => {
     setMenu(!menu);
@@ -121,7 +106,6 @@ export default function Home({}) {
       const sectionTitle = new URLSearchParams(
         url.parse(window.location.href).query
       ).get("section");
-      console.log(sectionTitle);
       openSection(sectionTitle);
     }
   }, []);

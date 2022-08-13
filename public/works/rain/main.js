@@ -244,7 +244,6 @@ class Scroller {
     if (el.attr("animation")) {
       const animation = el.attr("animation").split(" ");
       const name = animation[0];
-      console.log(animation);
       this.animations.push({
         item: el,
         animation: animation[0],
