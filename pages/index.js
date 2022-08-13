@@ -37,9 +37,17 @@ export default function Home({}) {
   }
 
   const triggerFilter = (text) => {
-    $(window).scrollTop(0);
     setFilter(text);
   };
+
+  useEffect(() => {
+    if (filter) {
+      setTimeout(() => {
+        $("html, body").animate({ scrollTop: `${window.innerHeight}` }, 1000);
+        console.log("animated");
+      }, 100);
+    }
+  }, [filter]);
 
   useEffect(() => {
     if (window.matchMedia("(any-hover: none)").matches) {

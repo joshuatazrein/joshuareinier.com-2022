@@ -59,7 +59,8 @@ tab {
 }
 
 .j-shadow {
-  @apply w-fit text-shadow-lg;
+  @apply w-fit;
+  text-shadow: 0 0 10px #000, 0 0 20px #000;
 }
 
 .j-shadow-800 {
