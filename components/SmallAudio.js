@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import AppContext from "../services/AppContext";
 
 export default function SmallAudio(props) {
   const thisAudio = useRef();
@@ -8,18 +9,7 @@ export default function SmallAudio(props) {
   const max = 32;
   const thisCanvas = useRef();
   const fadeOut = useRef();
-
-  function draw() {
-    // const h = thisCanvas.current.height;
-    // const w = thisCanvas.current.width;
-    // const c = thisCanvas.current.getContext("2d");
-    // c.clearRect(0, 0, h, w);
-    // c.fillStyle = "#bae6fd";
-    // const p = max / 2 + progress * (h / 2 - max / 2);
-    // c.beginPath();
-    // c.arc(Math.floor(h / 2), Math.floor(w / 2), p, 0, Math.PI * 2);
-    // c.fill();
-  }
+  const context = useContext(AppContext);
 
   useEffect(() => {
     if (play) {
@@ -68,6 +58,10 @@ export default function SmallAudio(props) {
       setProgress(thisAudio.current.currentTime / props.duration);
     };
   }, []);
+
+  useEffect(() => {
+    setPlay(false);
+  }, [context.section]);
 
   return (
     <>

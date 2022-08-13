@@ -110,11 +110,7 @@ export default function Home({}) {
     }
   }, []);
 
-  useEffect(() => {
-    timeline.current = gsap.timeline();
-  }, []);
-
-  const context = { filter, search, openSection, timeline, mobile };
+  const context = { filter, openSection, section };
 
   return (
     <AppContext.Provider value={context}>
@@ -282,17 +278,6 @@ export default function Home({}) {
 
         <Section
           category="multimedia"
-          link="rain/index.html"
-          linkA={true}
-          background="/vid/rain_cover.webm"
-          linkText="view"
-        >
-          <Heading>rain</Heading>
-          <Subtitle>a kinetic digital poem</Subtitle>
-        </Section>
-
-        <Section
-          category="multimedia"
           link="what-ive-done"
           className="relative"
           linkText="watch"
@@ -300,6 +285,17 @@ export default function Home({}) {
         >
           <Heading>What I've Done</Heading>
           <Subtitle>It's what I've done.</Subtitle>
+        </Section>
+
+        <Section
+          category="multimedia"
+          link="rain/index.html"
+          linkA={true}
+          background="/vid/rain_cover.webm"
+          linkText="view"
+        >
+          <Heading>rain</Heading>
+          <Subtitle>a kinetic digital poem</Subtitle>
         </Section>
 
         <Section
