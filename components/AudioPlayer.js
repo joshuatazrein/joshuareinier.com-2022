@@ -11,14 +11,11 @@ export default function AudioPlayer(props) {
   const [playerWidth, setPlayerWidth] = useState(0);
 
   useEffect(() => {
-    if (play) {
-      $("audio")
-        .toArray()
-        .forEach((x) => x.pause());
-      thisAudio.current.play();
-    } else {
-      thisAudio.current.pause();
-    }
+    $("audio")
+      .toArray()
+      .forEach((x) => {
+        if (x !== thisAudio.current) x.pause();
+      });
   }, [play]);
 
   useEffect(() => {
@@ -44,12 +41,20 @@ export default function AudioPlayer(props) {
 
   return (
     <div className="w-full flex-none flex items-center rounded border border-slate-400 overflow-hidden my-1 h-5">
-      <button className="h-5 p-1 bg-semiblack-600">
+      <button
+        className="h-5 p-1 bg-semiblack-600"
+        onClick={() => {
+          if (play) {
+            thisAudio.current.pause();
+          } else {
+            thisAudio.current.play();
+          }
+          setPlay(!play);
+        }}
+      >
         <img
-          onClick={() => setPlay(!play)}
           src={play ? "/icon/pause.svg" : "/icon/play.svg"}
-          height={16}
-          width={16}
+          className="h-full w-full"
         />
       </button>
       <div

@@ -12,14 +12,11 @@ export default function SmallAudio(props) {
   const thisAudio = useRef(new Audio(props.src));
 
   useEffect(() => {
-    if (play) {
-      $("audio")
-        .toArray()
-        .forEach((x) => x.pause());
-      thisAudio.current.play();
-    } else {
-      thisAudio.current.pause();
-    }
+    $("audio")
+      .toArray()
+      .forEach((x) => {
+        if (x !== thisAudio.current) x.pause();
+      });
   }, [play]);
 
   useEffect(() => {
@@ -71,9 +68,16 @@ export default function SmallAudio(props) {
           className={`p-1 bg-semiblack-600 border ${
             play ? "border-sky-300" : "border-white"
           } rounded-full z-30 h-[32px] w-[32px] top-[16px] left-[16px] absolute`}
+          onClick={() => {
+            if (play) {
+              thisAudio.current.pause();
+            } else {
+              thisAudio.current.play();
+            }
+            setPlay(!play);
+          }}
         >
           <img
-            onClick={() => setPlay(!play)}
             src={play ? "/icon/pause.svg" : "/icon/play.svg"}
             className="h-full w-full"
           />
@@ -88,12 +92,6 @@ export default function SmallAudio(props) {
             transition: "height 1s, width 1s, top 1s, left 1s",
           }}
         ></div>
-        {/* <canvas
-          ref={thisCanvas}
-          className="absolute z-20 top-0 left-0"
-          width={32 + max}
-          height={32 + max}
-        ></canvas> */}
       </div>
     </>
   );
