@@ -10,7 +10,7 @@ import $ from "jquery";
 import { gsap } from "gsap/dist/gsap";
 import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import AppContext from "../services/AppContext";
-import Audio from "../components/Audio";
+import AudioPlayer from "../components/AudioPlayer";
 import PDF from "../components/PDF";
 import ScoreCover from "../components/ScoreCover";
 import SmallAudio from "../components/SmallAudio";
@@ -93,6 +93,15 @@ export default function Home({}) {
       }
     }
   }, [open, menu]);
+
+  // useEffect(() => {
+  //   $("audio")
+  //     .toArray()
+  //     .forEach((x) => {
+  //       x.pause();
+  //       console.log(x);
+  //     });
+  // }, [open]);
 
   const toggleMenu = () => {
     setMenu(!menu);

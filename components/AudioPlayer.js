@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./Audio.module.css";
 
-export default function Audio(props) {
-  const thisAudio = useRef();
+export default function AudioPlayer(props) {
+  const thisAudio = useRef(new Audio(props.src));
   const thisFrame = useRef();
   const [play, setPlay] = useState(false);
   const [progress, setProgress] = useState(0.2);
@@ -22,10 +22,11 @@ export default function Audio(props) {
   }, [play]);
 
   useEffect(() => {
-    thisAudio.current.ondurationchange = () =>
-      (thisAudio.current.currentTime = 0);
-    thisAudio.current.ontimeupdate = () =>
+    const updateDuration = () => (thisAudio.current.currentTime = 0);
+    thisAudio.current.ondurationchange = updateDuration;
+    const updateTime = () =>
       setProgress(thisAudio.current.currentTime / thisAudio.current.duration);
+    thisAudio.current.ontimeupdate = updateTime;
 
     const updatePlayerWidth = () => {
       setPlayerWidth($(thisFrame.current).width());
@@ -35,12 +36,14 @@ export default function Audio(props) {
 
     return () => {
       $(window).off("resize", updatePlayerWidth);
+      $(thisAudio.current).off("durationchange", updateDuration);
+      $(thisAudio.current).off("timeupdate", updateTime);
+      thisAudio.current.pause();
     };
   }, []);
 
   return (
     <div className="w-full flex-none flex items-center rounded border border-slate-400 overflow-hidden my-1 h-5">
-      <audio src={props.src} ref={thisAudio} />
       <button className="h-5 p-1 bg-semiblack-600">
         <img
           onClick={() => setPlay(!play)}

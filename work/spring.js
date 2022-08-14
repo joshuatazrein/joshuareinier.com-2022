@@ -1,4 +1,4 @@
-import Audio from "../components/Audio";
+import AudioPlayer from "../components/AudioPlayer";
 import Container from "../components/container";
 import Explanation from "../components/explanation";
 import Heading from "../components/heading";
@@ -22,7 +22,11 @@ export default function Spring({}) {
           the final duet between voice and cello, in which a twisted major scale
           emerges.
         </Explanation>
-        <Audio controls className="w-full" src="/snd/spring.mp3"></Audio>
+        <AudioPlayer
+          controls
+          className="w-full"
+          src="/snd/spring.mp3"
+        ></AudioPlayer>
         <PDF src="/doc/spring.pdf"></PDF>
       </Container>
     </>

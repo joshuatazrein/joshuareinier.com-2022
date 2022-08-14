@@ -2,7 +2,7 @@ import PDF from "../components/PDF";
 import Title from "../components/title";
 import Container from "../components/container";
 import Explanation from "../components/explanation";
-import Audio from "../components/Audio";
+import AudioPlayer from "../components/AudioPlayer";
 
 const title = "317 feathers (the myth of icarus)";
 
@@ -20,7 +20,11 @@ export default function Feathers({}) {
           This illustrates the text, which traces a passage from stillness to
           twisted flight before careening back to earth.
         </Explanation>
-        <Audio controls className="w-full" src="/snd/317-feathers.mp3"></Audio>
+        <AudioPlayer
+          controls
+          className="w-full"
+          src="/snd/317-feathers.mp3"
+        ></AudioPlayer>
         <PDF src="/doc/317-feathers.pdf"></PDF>
       </Container>
     </>

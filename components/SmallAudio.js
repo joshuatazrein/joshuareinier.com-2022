@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
+import ReactAudioPlayer from "react-audio-player";
 import AppContext from "../services/AppContext";
 
 export default function SmallAudio(props) {
-  const thisAudio = useRef();
   const [play, setPlay] = useState(false);
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(1);
@@ -10,6 +10,7 @@ export default function SmallAudio(props) {
   const thisCanvas = useRef();
   const fadeOut = useRef();
   const context = useContext(AppContext);
+  const thisAudio = useRef(new Audio(props.src));
 
   useEffect(() => {
     if (play) {
@@ -23,9 +24,6 @@ export default function SmallAudio(props) {
   }, [play]);
 
   useEffect(() => {
-    if (thisCanvas.current) {
-      draw();
-    }
     if (
       thisAudio.current.currentTime >= props.duration - 1 &&
       !fadeOut.current
@@ -46,16 +44,17 @@ export default function SmallAudio(props) {
   }, [progress]);
 
   useEffect(() => {
-    thisAudio.current.ondurationchange = () => {
-      thisAudio.current.duration = 30;
-      thisAudio.current.currentTime = 0;
-      draw();
-    };
-
-    thisAudio.current.ondurationchange = () =>
-      (thisAudio.current.currentTime = 0);
-    thisAudio.current.ontimeupdate = () => {
+    const handleDuration = () => (thisAudio.current.currentTime = 0);
+    thisAudio.current.ondurationchange = handleDuration;
+    const handleTime = () => {
       setProgress(thisAudio.current.currentTime / props.duration);
+    };
+    thisAudio.current.ontimeupdate = handleTime;
+
+    return () => {
+      $(thisAudio.current).off("durationchange", handleDuration);
+      $(thisAudio.current).off("timeupdate", handleTime);
+      thisAudio.current.pause();
     };
   }, []);
 
@@ -65,7 +64,6 @@ export default function SmallAudio(props) {
 
   return (
     <>
-      <audio src={props.src} ref={thisAudio} />
       <div
         className={`relative top-2 left-2`}
         style={{ height: 0, width: 32 + max }}
