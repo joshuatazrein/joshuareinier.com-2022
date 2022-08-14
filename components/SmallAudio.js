@@ -1,5 +1,4 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import ReactAudioPlayer from "react-audio-player";
 import AppContext from "../services/AppContext";
 
 export default function SmallAudio(props) {
