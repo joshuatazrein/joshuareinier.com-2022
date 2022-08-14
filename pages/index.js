@@ -7,15 +7,9 @@ import url from "url";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import $ from "jquery";
-import { gsap } from "gsap/dist/gsap";
-import ScrollTrigger from "gsap/dist/ScrollTrigger";
 import AppContext from "../services/AppContext";
-import AudioPlayer from "../components/AudioPlayer";
-import PDF from "../components/PDF";
 import ScoreCover from "../components/ScoreCover";
 import SmallAudio from "../components/SmallAudio";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const DynamicViewer = dynamic(() => import("../components/Viewer"), {
   loading: () => <div></div>,
@@ -26,10 +20,6 @@ export default function Home({}) {
   const [open, setOpen] = useState(false);
   const [menu, setMenu] = useState(false);
   const [filter, setFilter] = useState(false);
-  const [search, setSearch] = useState("");
-  const timeline = useRef();
-  const [mobile, setMobile] = useState(false);
-  const snapper = useRef();
 
   const sections = [];
   for (let i = 0; i < 21; i++) {
@@ -50,38 +40,6 @@ export default function Home({}) {
   }, [filter]);
 
   useEffect(() => {
-    if (window.matchMedia("(any-hover: none)").matches) {
-      setMobile(true);
-    }
-
-    const chrome = () => {
-      var isChromium = window.chrome;
-      var winNav = window.navigator;
-      var vendorName = winNav.vendor;
-      var isOpera = typeof window.opr !== "undefined";
-      var isIEedge = winNav.userAgent.indexOf("Edg") > -1;
-      var isIOSChrome = winNav.userAgent.match("CriOS");
-
-      if (isIOSChrome) {
-        // is Google Chrome on IOS
-        return false;
-      } else if (
-        isChromium !== null &&
-        typeof isChromium !== "undefined" &&
-        vendorName === "Google Inc." &&
-        isOpera === false &&
-        isIEedge === false
-      ) {
-        // is Google Chrome
-        return true;
-      } else {
-        // not Google Chrome
-        return false;
-      }
-    };
-  }, []);
-
-  useEffect(() => {
     // freeze body scrolling on open of document
     if (open) {
       $("body").css("overflow-y", "hidden");
@@ -93,15 +51,6 @@ export default function Home({}) {
       }
     }
   }, [open, menu]);
-
-  // useEffect(() => {
-  //   $("audio")
-  //     .toArray()
-  //     .forEach((x) => {
-  //       x.pause();
-  //       console.log(x);
-  //     });
-  // }, [open]);
 
   const toggleMenu = () => {
     setMenu(!menu);
@@ -276,21 +225,12 @@ export default function Home({}) {
             className="w-full h-full object-cover z-0"
           ></img>
           <HomeHeadline />
-          <button
-            className="absolute bottom-0 right-0 border border-white rounded p-1 m-2 bg-semiblack-500"
-            onClick={() => {
-              $("html, body")
-                .stop()
-                .animate({ scrollTop: window.innerHeight }, 1000);
-            }}
-          >
-            <img
-              src="/icon/down.svg"
-              height={16}
-              width={16}
-              className="blue-filter"
-            ></img>
-          </button>
+          <img
+            src="/icon/down.svg"
+            height={36}
+            width={36}
+            className="absolute bottom-0 right-0 p-1 m-2 blue-filter animate-bounce"
+          ></img>
         </div>
 
         <Section

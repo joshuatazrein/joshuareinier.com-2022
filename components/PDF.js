@@ -7,7 +7,8 @@ export default function PDF(props) {
   return (
     <div
       className={
-        "w-3/4 h-screen relative mx-auto my-2 " + (props.className || "")
+        "w-3/4 h-screen relative mx-auto my-2 max-h-[108vw]" +
+        (props.className || "")
       }
     >
       <a
@@ -18,7 +19,7 @@ export default function PDF(props) {
         <img src="/icon/fullscreen.svg" height={16} width={16} />
       </a>
       <iframe
-        src={props.src + "#view=Fit"}
+        src={props.src + "#view=FitBH"}
         className="mx-auto rounded relative w-full h-full"
         style={{
           filter: props.dark
